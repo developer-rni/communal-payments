@@ -1,43 +1,28 @@
 # communal-payments Rybkin Nikita Igorevich
 
-import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-from Main import Ui_MainWindow
+import sys, Main, ElectricalEnergy, TypesOfPayments
+from PyQt5 import QtWidgets
 
-# Create application
-app = QApplication(sys.argv)
-
-# Create form and init UI
-Form = QtGui.QWid
-ui = Ui_MainWindow
-ui.setupUi(Form)
-Form.show()
-
-
-# Hook logic
+class ExampleApp(QtWidgets.QMainWindow, Main.Ui_MainWindow):
+    def __init__(self):
+        # Это здесь нужно для доступа к переменным, методам
+        # и т.д. в файле Main.py
+        super().__init__()
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+        #------
+        self.action_5.triggered.connect(self.close)  # Закрыть программу при нажатии толстого13->Выход
+        #self.action.triggered.connect(TypesOfPayments.Ui_Form)  # Закрыть программу при нажатии толстого13->Выход
 
 
 
-# Run main loop
-sys.exit(app.exec_())
 
 
-# from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QTextEdit
-# from PyQt5 import uic, QtCore, QtGui, QtWidgets
-# import sys
-#
-#
-# class UI(QMainWindow):
-#     def __init__(self):
-#         super(UI, self).__init__()
-#
-#         uic.loadUi("ui/cd_MainMenu.ui", self)
-#         # uic.loadUi("ui/cd_ElectricalEnergy.ui", self)
-#         uic.loadUi("ui/cd_TypesOfPayments.ui", self)
-#
-#         self.show()
-#
-#
-# app = QApplication(sys.argv)
-# UIWindow = UI()
-# app.exec_()
+
+def main():
+    app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
+    window = ExampleApp()  # Создаём объект класса ExampleApp
+    window.show()  # Показываем окно
+    app.exec_()  # и запускаем приложение
+
+if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
+    main()  # то запускаем функцию main()
