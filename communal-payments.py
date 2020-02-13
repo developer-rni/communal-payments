@@ -1,58 +1,27 @@
 # communal-payments Rybkin Nikita Igorevich
 
-import sys, MainMenu, ElectricalEnergy, TypesOfPayments, Table_t13
+import sys, MainMenu
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QGridLayout, QLabel, QApplication
+
+"""Нужно использовать замену виджетов с помощью QStackedWidget()"""
 
 class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле Main.py
-        super().__init__()
+        super(ExampleApp, self).__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         #------
-        self.typofpay = typofpay()
-        self.table_t13 = table_t13()
+        self.InitUI()
 
 
-        self.action_5.triggered.connect(self.close)  # Закрыть программу при нажатии Файл->Выход
-        self.action.triggered.connect(self.show_typofpay)  # Открыть окно "что платим" при нажатии на Толстого13->Рассчитать
-        self.action_6.triggered.connect(self.show_typofpay)  # Открыть окно "что платим" при нажатии на Андреевская61->Рассчитать
-        self.action_2.triggered.connect(self.show_table_t13)  #
-
-
-    def show_typofpay(self):
-        self.setCentralWidget(self.typofpay)
-    def show_table_t13(self):
-        self.setCentralWidget(self.table_t13)
-
-class typofpay(QtWidgets.QWidget, TypesOfPayments.Ui_Form):
-    def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле Main.py
-        super().__init__()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
-
-        self.ElectEn = ElectEn()
-
-        self.pushButton.clicked.connect(self.show_ElectEn)
-
-    def show_ElectEn(self):
-        self.ElectEn.show()
-
-class table_t13(QtWidgets.QTabWidget, Table_t13.Ui_TabWidget):
-    def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле Main.py
-        super().__init__()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
-
-class ElectEn(QtWidgets.QDialog, ElectricalEnergy.Ui_Dialog):
-    def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле Main.py
-        super().__init__()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+    def InitUI(self):
+        self.action_2.triggered.connect(self.close)  # Закрыть программу при нажатии Файл->Выход
+        self.action_3.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(1))  # Открыть окно "что платим" при нажатии на Толстого13->Рассчитать
+        self.action_4.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(3))  # Открыть таблицу отчет при нажатии на Толстого13->Отчет
+        self.action_5.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(2))  # Открыть окно "что платим" при нажатии на Андреевская61->Рассчитать
+        self.action_6.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(3))  # Открыть таблицу отчет при нажатии на Андреевская61->Отчет
 
 
 
