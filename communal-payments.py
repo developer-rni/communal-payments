@@ -1,10 +1,11 @@
 # communal-payments Rybkin Nikita Igorevich
+# v 0.1.2
 
 import sys, MainMenu
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QGridLayout, QLabel, QApplication
 
-"""Нужно использовать замену виджетов с помощью QStackedWidget()"""
+"""Нужно добавить таблицы для андреевской и общего отчета(итого) через desiner"""
 
 class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
     def __init__(self):

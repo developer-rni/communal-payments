@@ -122,7 +122,7 @@ class Ui_MainWindow(object):
         self.pushButton.setObjectName("pushButton")
         self.gridLayout.addWidget(self.pushButton, 0, 0, 1, 1)
         self.label = QtWidgets.QLabel(self.page_3)
-        self.label.setGeometry(QtCore.QRect(415, 10, 221, 41))
+        self.label.setGeometry(QtCore.QRect(405, 10, 241, 41))
         self.label.setObjectName("label")
         self.stackedWidget.addWidget(self.page_3)
         self.page_4 = QtWidgets.QWidget()
@@ -6454,7 +6454,7 @@ class Ui_MainWindow(object):
         self.pushButton_3.setText(_translate("MainWindow", "Газоснабжение"))
         self.pushButton_6.setText(_translate("MainWindow", "Телефон"))
         self.pushButton.setText(_translate("MainWindow", "Водоснабжение"))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">Андреевская 61</span></p></body></html>"))
+        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">Андреевская 61А</span></p></body></html>"))
         item = self.tableWidget_2020_jan.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "Показания на этот месяц"))
         item = self.tableWidget_2020_jan.verticalHeaderItem(1)
@@ -10680,7 +10680,8 @@ class Ui_MainWindow(object):
         self.action_6.setText(_translate("MainWindow", "Отчет"))
         self.action_7.setText(_translate("MainWindow", "Общий отчет"))
 
-# Окна на виды платежей
+        """Окна на виды платежей"""
+
         self.ElectEn = ElectEn()
         self.pushButton_9.clicked.connect(self.show_ElectEn)
         self.pushButton_2.clicked.connect(self.show_ElectEn)
