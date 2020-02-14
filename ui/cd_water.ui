@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>404</width>
-    <height>290</height>
+    <width>400</width>
+    <height>291</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Расчет электроэнергии</string>
+   <string>Расчет водоснабжения</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -46,27 +46,6 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Норма в этом месяце</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Цена за поподание в норму</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Цена за сверхнорму</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
      <widget class="QSpinBox" name="spinBox">
       <property name="maximum">
@@ -74,17 +53,24 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Цена за водоснабжение</string>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="1">
-     <widget class="QSpinBox" name="spinBox_2">
-      <property name="maximum">
-       <number>999</number>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Цена за водоотведение</string>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
-    </item>
-    <item row="3" column="1">
      <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
     </item>
    </layout>

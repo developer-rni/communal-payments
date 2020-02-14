@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'cd_ElectricalEnergy.ui'
+# Form implementation generated from reading ui file 'cd_trash.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(404, 290)
+        Dialog.resize(400, 300)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(30, 240, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
@@ -26,29 +26,23 @@ class Ui_Dialog(object):
         self.label = QtWidgets.QLabel(self.formLayoutWidget)
         self.label.setObjectName("label")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
+        self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
+        self.doubleSpinBox.setDecimals(2)
+        self.doubleSpinBox.setMaximum(999.99)
+        self.doubleSpinBox.setProperty("value", 0.0)
+        self.doubleSpinBox.setObjectName("doubleSpinBox")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox)
         self.label_2 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
-        self.label_3 = QtWidgets.QLabel(self.formLayoutWidget)
-        self.label_3.setObjectName("label_3")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_3)
-        self.label_4 = QtWidgets.QLabel(self.formLayoutWidget)
-        self.label_4.setObjectName("label_4")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_4)
-        self.spinBox = QtWidgets.QSpinBox(self.formLayoutWidget)
-        self.spinBox.setMaximum(99999)
-        self.spinBox.setObjectName("spinBox")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.spinBox)
-        self.spinBox_2 = QtWidgets.QSpinBox(self.formLayoutWidget)
-        self.spinBox_2.setMaximum(999)
-        self.spinBox_2.setObjectName("spinBox_2")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.spinBox_2)
-        self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
-        self.doubleSpinBox.setObjectName("doubleSpinBox")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox)
         self.doubleSpinBox_2 = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
+        self.doubleSpinBox_2.setDecimals(0)
+        self.doubleSpinBox_2.setMinimum(0.0)
+        self.doubleSpinBox_2.setMaximum(10.0)
+        self.doubleSpinBox_2.setSingleStep(1.0)
+        self.doubleSpinBox_2.setProperty("value", 0.0)
         self.doubleSpinBox_2.setObjectName("doubleSpinBox_2")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_2)
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_2)
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept)
@@ -57,11 +51,9 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Расчет электроэнергии"))
-        self.label.setText(_translate("Dialog", "Показания на этот месяц"))
-        self.label_2.setText(_translate("Dialog", "Норма в этом месяце"))
-        self.label_3.setText(_translate("Dialog", "Цена за поподание в норму"))
-        self.label_4.setText(_translate("Dialog", "Цена за сверхнорму"))
+        Dialog.setWindowTitle(_translate("Dialog", "Расчет мусора"))
+        self.label.setText(_translate("Dialog", "Цена за 1 человека"))
+        self.label_2.setText(_translate("Dialog", "Кол-во человеков"))
 
 
 if __name__ == "__main__":

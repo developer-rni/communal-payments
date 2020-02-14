@@ -1,5 +1,5 @@
 # communal-payments Rybkin Nikita Igorevich
-# v 0.1.2
+# v 0.2
 
 import sys, MainMenu
 from PyQt5 import QtWidgets, QtCore, QtGui
@@ -18,11 +18,14 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
 
 
     def InitUI(self):
-        self.action_2.triggered.connect(self.close)  # Закрыть программу при нажатии Файл->Выход
-        self.action_3.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(1))  # Открыть окно "что платим" при нажатии на Толстого13->Рассчитать
-        self.action_4.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(3))  # Открыть таблицу отчет при нажатии на Толстого13->Отчет
-        self.action_5.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(2))  # Открыть окно "что платим" при нажатии на Андреевская61->Рассчитать
-        self.action_6.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(3))  # Открыть таблицу отчет при нажатии на Андреевская61->Отчет
+        # self.action_save.triggered.connect(self.)  # Закрыть программу при нажатии Файл->сохронить
+        # self.action_download_GD.triggered.connect(self.)  # Закрыть программу при нажатии Файл->Залить в облако (google drive)
+        self.action_exit.triggered.connect(self.close)  # Закрыть программу при нажатии Файл->Выход
+        self.action_t13_calculate.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(1))  # Открыть окно "что платим" при нажатии на Толстого13->Рассчитать
+        self.action_t13_report.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(3))  # Открыть таблицу отчет при нажатии на Толстого13->Отчет
+        self.action_a61a_calculate.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(2))  # Открыть окно "что платим" при нажатии на Андреевская61->Рассчитать
+        self.action_a61a_report.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(4))  # Открыть таблицу отчет при нажатии на Андреевская61->Отчет
+        self.action_generalreport.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(5))  # Открыть таблицу отчет при нажатии на Андреевская61->Отчет
 
 
 
