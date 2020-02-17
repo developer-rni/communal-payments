@@ -4,8 +4,32 @@
 import sys, MainMenu
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QGridLayout, QLabel, QApplication
+import sqlite3
 
-"""Нужно добавить таблицы для андреевской и общего отчета(итого) через desiner"""
+def sqlite_create_db():
+    # соединяемся с бд, если нету создается новая с таким же именем
+    con = sqlite3.connect('./data/data_cp.db')
+
+    # создаем объект курсора
+    cur = con.cursor()
+
+    # создаем таблицу если её не существует
+    cur.execute('CREATE TABLE IF NOT EXISTS core_fes(Well TEXT, '
+                                                    'Sample TEXT, '
+                                                    'Porosity FLOAT, '
+                                                    'Swr FLOAT, '
+                                                    'Permeability FLOAT) ')
+
+    # добовляем данные в таблицу
+    cur.execute('INSERT INTO core_fes VALUES ("Yellow snake creek", "Sample #666", 25.6, 38, 16)')
+
+    # подтверждаем внесенные изменения
+    con.commit()
+
+    cur.close() # удаляем курсор
+    con.close() # разрываем соединение с базой
+
+
 
 class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
     def __init__(self):
