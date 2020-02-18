@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'cd_MainMenu.ui'
+# Form implementation generated from reading ui file 'cd_MainMenu_2.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import water, ElectricalEnergy, gas, trash, internet, phone
+import water, ElectricalEnergy, gas, trash, internet, phone, save, sqlite3
+
+#сразу соединяемся с базой данных и устанавливаем курсор
+con = sqlite3.connect('./data/data_cp.db')
+cur = con.cursor()
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -109,45 +113,27 @@ class Ui_MainWindow(object):
         self.page_3 = QtWidgets.QWidget()
         self.page_3.setObjectName("page_3")
         self.gridLayoutWidget = QtWidgets.QWidget(self.page_3)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(310, 140, 436, 326))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(430, 160, 194, 224))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.gridLayoutWidget)
-        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_3.setObjectName("gridLayout_3")
-        self.pushButton_a61a_trash = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.pushButton_a61a_trash.setIcon(icon)
-        self.pushButton_a61a_trash.setIconSize(QtCore.QSize(64, 64))
-        self.pushButton_a61a_trash.setObjectName("pushButton_a61a_trash")
-        self.gridLayout_3.addWidget(self.pushButton_a61a_trash, 1, 1, 1, 1)
-        self.pushButton_a61a_internet = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.pushButton_a61a_internet.setIcon(icon1)
-        self.pushButton_a61a_internet.setIconSize(QtCore.QSize(64, 64))
-        self.pushButton_a61a_internet.setObjectName("pushButton_a61a_internet")
-        self.gridLayout_3.addWidget(self.pushButton_a61a_internet, 2, 0, 1, 1)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.gridLayoutWidget)
+        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
         self.pushButton_a61a_electric = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.pushButton_a61a_electric.setIcon(icon2)
         self.pushButton_a61a_electric.setIconSize(QtCore.QSize(64, 64))
         self.pushButton_a61a_electric.setObjectName("pushButton_a61a_electric")
-        self.gridLayout_3.addWidget(self.pushButton_a61a_electric, 0, 1, 1, 1)
+        self.verticalLayout.addWidget(self.pushButton_a61a_electric)
         self.pushButton_a61a_gas = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.pushButton_a61a_gas.setIcon(icon3)
         self.pushButton_a61a_gas.setIconSize(QtCore.QSize(64, 64))
         self.pushButton_a61a_gas.setObjectName("pushButton_a61a_gas")
-        self.gridLayout_3.addWidget(self.pushButton_a61a_gas, 1, 0, 1, 1)
-        self.pushButton_a61a_phone = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.pushButton_a61a_phone.setIcon(icon4)
-        self.pushButton_a61a_phone.setIconSize(QtCore.QSize(64, 64))
-        self.pushButton_a61a_phone.setObjectName("pushButton_a61a_phone")
-        self.gridLayout_3.addWidget(self.pushButton_a61a_phone, 2, 1, 1, 1)
-        self.pushButton_a61a_water = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.pushButton_a61a_water.setIcon(icon5)
-        self.pushButton_a61a_water.setIconSize(QtCore.QSize(64, 64))
-        self.pushButton_a61a_water.setCheckable(False)
-        self.pushButton_a61a_water.setAutoRepeat(False)
-        self.pushButton_a61a_water.setAutoExclusive(False)
-        self.pushButton_a61a_water.setFlat(False)
-        self.pushButton_a61a_water.setObjectName("pushButton_a61a_water")
-        self.gridLayout_3.addWidget(self.pushButton_a61a_water, 0, 0, 1, 1)
+        self.verticalLayout.addWidget(self.pushButton_a61a_gas)
+        self.pushButton_a61a_trash = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.pushButton_a61a_trash.setIcon(icon)
+        self.pushButton_a61a_trash.setIconSize(QtCore.QSize(64, 64))
+        self.pushButton_a61a_trash.setObjectName("pushButton_a61a_trash")
+        self.verticalLayout.addWidget(self.pushButton_a61a_trash)
         self.label_3 = QtWidgets.QLabel(self.page_3)
         self.label_3.setGeometry(QtCore.QRect(405, 10, 241, 41))
         self.label_3.setObjectName("label_3")
@@ -13608,7 +13594,7 @@ class Ui_MainWindow(object):
         self.pushButton_t13_water.setText(_translate("MainWindow", "Водоснабжение"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">Толстого 13</span></p></body></html>"))
         self.spinBox_2.setSuffix(_translate("MainWindow", " год"))
-        self.comboBox_2.setItemText(0, _translate("MainWindow", "Янаварь"))
+        self.comboBox_2.setItemText(0, _translate("MainWindow", "Январь"))
         self.comboBox_2.setItemText(1, _translate("MainWindow", "Февраль"))
         self.comboBox_2.setItemText(2, _translate("MainWindow", "Март"))
         self.comboBox_2.setItemText(3, _translate("MainWindow", "Апрель"))
@@ -13620,14 +13606,11 @@ class Ui_MainWindow(object):
         self.comboBox_2.setItemText(9, _translate("MainWindow", "Октябрь"))
         self.comboBox_2.setItemText(10, _translate("MainWindow", "Ноябрь"))
         self.comboBox_2.setItemText(11, _translate("MainWindow", "Декабрь"))
-        self.pushButton_a61a_trash.setText(_translate("MainWindow", "Мусор"))
-        self.pushButton_a61a_internet.setText(_translate("MainWindow", "Интернет"))
         self.pushButton_a61a_electric.setText(_translate("MainWindow", "Электроэнергия"))
         self.pushButton_a61a_gas.setText(_translate("MainWindow", "Газоснабжение"))
-        self.pushButton_a61a_phone.setText(_translate("MainWindow", "Телефон"))
-        self.pushButton_a61a_water.setText(_translate("MainWindow", "Водоснабжение"))
+        self.pushButton_a61a_trash.setText(_translate("MainWindow", "Мусор"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">Андреевская 61А</span></p></body></html>"))
-        self.comboBox_3.setItemText(0, _translate("MainWindow", "Янаварь"))
+        self.comboBox_3.setItemText(0, _translate("MainWindow", "Январь"))
         self.comboBox_3.setItemText(1, _translate("MainWindow", "Февраль"))
         self.comboBox_3.setItemText(2, _translate("MainWindow", "Март"))
         self.comboBox_3.setItemText(3, _translate("MainWindow", "Апрель"))
@@ -21353,41 +21336,80 @@ class Ui_MainWindow(object):
         self.internet = internet()
         self.phone = phone()
 
-        self.pushButton_t13_water.clicked.connect(self.show_water)
-        self.pushButton_a61a_water.clicked.connect(self.show_water)
+        self.pushButton_t13_water.clicked.connect(self.show_water_t13)
 
-        self.pushButton_t13_electric.clicked.connect(self.show_ElectEn)
-        self.pushButton_a61a_electric.clicked.connect(self.show_ElectEn)
+        self.pushButton_t13_electric.clicked.connect(self.show_ElectEn_t13)
+        self.pushButton_a61a_electric.clicked.connect(self.show_ElectEn_a61a)
 
-        self.pushButton_t13_gas.clicked.connect(self.show_gas)
-        self.pushButton_a61a_gas.clicked.connect(self.show_gas)
+        self.pushButton_t13_gas.clicked.connect(self.show_gas_t13)
+        self.pushButton_a61a_gas.clicked.connect(self.show_gas_a61a)
 
-        self.pushButton_t13_trash.clicked.connect(self.show_trash)
-        self.pushButton_a61a_trash.clicked.connect(self.show_trash)
+        self.pushButton_t13_trash.clicked.connect(self.show_trash_t13)
+        self.pushButton_a61a_trash.clicked.connect(self.show_trash_a61a)
 
-        self.pushButton_t13_internet.clicked.connect(self.show_internet)
-        self.pushButton_a61a_internet.clicked.connect(self.show_internet)
+        self.pushButton_t13_internet.clicked.connect(self.show_internet_t13)
 
-        self.pushButton_t13_phone.clicked.connect(self.show_phone)
-        self.pushButton_a61a_phone.clicked.connect(self.show_phone)
+        self.pushButton_t13_phone.clicked.connect(self.show_phone_t13)
 
 
-    def show_water(self):
+    def show_water_t13(self):
+        global month_combo_t13
+        global year_spin_t13
+        month_combo_t13 = self.comboBox_2.currentText()
+        year_spin_t13 = self.spinBox_2.value()
         self.water.show()
 
-    def show_ElectEn(self):
+    def show_ElectEn_t13(self):
+        global month_combo_t13
+        global year_spin_t13
+        month_combo_t13 = self.comboBox_2.currentText()
+        year_spin_t13 = self.spinBox_2.value()
+        self.ElectEn.show()
+    def show_ElectEn_a61a(self):
+        global month_combo_a61a
+        global year_spin_a61a
+        month_combo_a61a = self.comboBox_3.currentText()
+        year_spin_a61a = self.spinBox_3.value()
         self.ElectEn.show()
 
-    def show_gas(self):
+    def show_gas_t13(self):
+        global month_combo_t13
+        global year_spin_t13
+        month_combo_t13 = self.comboBox_2.currentText()
+        year_spin_t13 = self.spinBox_2.value()
+        self.gas.show()
+    def show_gas_a61a(self):
+        global month_combo_a61a
+        global year_spin_a61a
+        month_combo_a61a = self.comboBox_3.currentText()
+        year_spin_a61a = self.spinBox_3.value()
         self.gas.show()
 
-    def show_trash(self):
+    def show_trash_t13(self):
+        global month_combo_t13
+        global year_spin_t13
+        month_combo_t13 = self.comboBox_2.currentText()
+        year_spin_t13 = self.spinBox_2.value()
+        self.trash.show()
+    def show_trash_a61a(self):
+        global month_combo_a61a
+        global year_spin_a61a
+        month_combo_a61a = self.comboBox_3.currentText()
+        year_spin_a61a = self.spinBox_3.value()
         self.trash.show()
 
-    def show_internet(self):
+    def show_internet_t13(self):
+        global month_combo_t13
+        global year_spin_t13
+        month_combo_t13 = self.comboBox_2.currentText()
+        year_spin_t13 = self.spinBox_2.value()
         self.internet.show()
 
-    def show_phone(self):
+    def show_phone_t13(self):
+        global month_combo_t13
+        global year_spin_t13
+        month_combo_t13 = self.comboBox_2.currentText()
+        year_spin_t13 = self.spinBox_2.value()
         self.phone.show()
 
 class water(QtWidgets.QDialog, water.Ui_Dialog):

@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import MainMenu, sqlite3
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -51,8 +52,8 @@ class Ui_Dialog(object):
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_2)
 
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
+        self.buttonBox.accepted.connect(self.acept_data)
+        self.buttonBox.rejected.connect(self.reject_data)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -62,6 +63,64 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Норма в этом месяце"))
         self.label_3.setText(_translate("Dialog", "Цена за поподание в норму"))
         self.label_4.setText(_translate("Dialog", "Цена за сверхнорму"))
+
+    def acept_data(self):
+        global energy_this_month
+        global energy_unit_price
+        global energy_price_per_norm
+        global energy_excess_prise
+        energy_this_month = self.spinBox.value()
+        energy_unit_price = self.spinBox_2.value()
+        energy_price_per_norm = self.doubleSpinBox.value()
+        energy_excess_prise = self.doubleSpinBox_2.value()
+        self.sqlite_update_db(energy_this_month, energy_unit_price, energy_price_per_norm, energy_excess_prise)
+        self.close()
+    def reject_data(self):
+        self.close()
+
+    def sqlite_update_db(self, nb1, nb2, nb3, nb4):
+
+        year_addr = str(MainMenu.year_spin_t13) + '_t13'
+
+        payment_type1 = 'energy_this_month'
+        payment_type2 = 'energy_unit_price'
+        payment_type3 = 'energy_price_per_norm'
+        payment_type4 = 'energy_excess_price'
+
+        number1 = nb1
+        number2 = nb2
+        number3 = nb3
+        number4 = nb4
+
+        if MainMenu.month_combo_t13 == 'Январь':
+            what_month = 'jan'
+        elif MainMenu.month_combo_t13 == 'Февраль':
+            what_month = 'feb'
+        elif MainMenu.month_combo_t13 == 'Март':
+            what_month = 'mar'
+        elif MainMenu.month_combo_t13 == 'Апрель':
+            what_month = 'apr'
+        elif MainMenu.month_combo_t13 == 'Май':
+            what_month = 'may'
+        elif MainMenu.month_combo_t13 == 'Июнь':
+            what_month = 'jun'
+        elif MainMenu.month_combo_t13 == 'Июль':
+            what_month = 'jul'
+        elif MainMenu.month_combo_t13 == 'Август':
+            what_month = 'aug'
+        elif MainMenu.month_combo_t13 == 'Сентябрь':
+            what_month = 'sept'
+        elif MainMenu.month_combo_t13 == 'Октябрь':
+            what_month = 'oct'
+        elif MainMenu.month_combo_t13 == 'Ноябрь':
+            what_month = 'nov'
+        else:
+            what_month = 'dec'
+
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number2, what_month))
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, number3, what_month))
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type4, number4, what_month))
 
 
 if __name__ == "__main__":
