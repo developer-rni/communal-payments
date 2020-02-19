@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Расчет водоснабжения</string>
+   <string>Расчет водоснабжения Толстого 13</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">

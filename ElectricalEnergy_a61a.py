@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'cd_internet.ui'
+# Form implementation generated from reading ui file 'cd_ElectricalEnegry_a61a.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -27,11 +27,10 @@ class Ui_Dialog(object):
         self.label = QtWidgets.QLabel(self.formLayoutWidget)
         self.label.setObjectName("label")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
-        self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
-        self.doubleSpinBox.setDecimals(2)
-        self.doubleSpinBox.setMaximum(9999.99)
-        self.doubleSpinBox.setObjectName("doubleSpinBox")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox)
+        self.spinBox = QtWidgets.QSpinBox(self.formLayoutWidget)
+        self.spinBox.setMaximum(99999)
+        self.spinBox.setObjectName("spinBox")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.spinBox)
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(self.acept_data)
@@ -40,49 +39,48 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Расчет интернета Толстого 13"))
-        self.label.setText(_translate("Dialog", "Цена за месяц"))
+        Dialog.setWindowTitle(_translate("Dialog", "Расчет электроэнергии Андреевская 61А"))
+        self.label.setText(_translate("Dialog", "Сумма к оплате"))
 
     def acept_data(self):
-        global internet_price
+        global energy_unit_price
 
-        internet_price = self.doubleSpinBox.value()
+        energy_unit_price = self.spinBox.value()
 
-        self.sqlite_update_db(internet_price)
+        self.sqlite_update_db(energy_unit_price)
         self.close()
     def reject_data(self):
         self.close()
 
     def sqlite_update_db(self, nb1):
 
-        year_addr = str(MainMenu.year_spin_t13) + '_t13'
+        year_addr = str(MainMenu.year_spin_a61a) + '_a61a'
 
-        payment_type1 = 'internet_price'
+        payment_type1 = 'energy_unit_price'
 
         number1 = nb1
 
-
-        if MainMenu.month_combo_t13 == 'Январь':
+        if MainMenu.month_combo_a61a == 'Январь':
             what_month = 'jan'
-        elif MainMenu.month_combo_t13 == 'Февраль':
+        elif MainMenu.month_combo_a61a == 'Февраль':
             what_month = 'feb'
-        elif MainMenu.month_combo_t13 == 'Март':
+        elif MainMenu.month_combo_a61a == 'Март':
             what_month = 'mar'
-        elif MainMenu.month_combo_t13 == 'Апрель':
+        elif MainMenu.month_combo_a61a == 'Апрель':
             what_month = 'apr'
-        elif MainMenu.month_combo_t13 == 'Май':
+        elif MainMenu.month_combo_a61a == 'Май':
             what_month = 'may'
-        elif MainMenu.month_combo_t13 == 'Июнь':
+        elif MainMenu.month_combo_a61a == 'Июнь':
             what_month = 'jun'
-        elif MainMenu.month_combo_t13 == 'Июль':
+        elif MainMenu.month_combo_a61a == 'Июль':
             what_month = 'jul'
-        elif MainMenu.month_combo_t13 == 'Август':
+        elif MainMenu.month_combo_a61a == 'Август':
             what_month = 'aug'
-        elif MainMenu.month_combo_t13 == 'Сентябрь':
+        elif MainMenu.month_combo_a61a == 'Сентябрь':
             what_month = 'sept'
-        elif MainMenu.month_combo_t13 == 'Октябрь':
+        elif MainMenu.month_combo_a61a == 'Октябрь':
             what_month = 'oct'
-        elif MainMenu.month_combo_t13 == 'Ноябрь':
+        elif MainMenu.month_combo_a61a == 'Ноябрь':
             what_month = 'nov'
         else:
             what_month = 'dec'

@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import water, ElectricalEnergy, gas, trash, internet, phone, save, sqlite3
+import water, ElectricalEnergy, ElectricalEnergy_a61a, gas, gas_a61a, trash, trash_a61a, internet, phone, save, sqlite3
 
 #сразу соединяемся с базой данных и устанавливаем курсор
 con = sqlite3.connect('./data/data_cp.db')
@@ -21336,6 +21336,10 @@ class Ui_MainWindow(object):
         self.internet = internet()
         self.phone = phone()
 
+        self.ElectEn_a61a = ElectEn_a61a()
+        self.gas_a61a = gas_a61a()
+        self.trash_a61a = trash_a61a()
+
         self.pushButton_t13_water.clicked.connect(self.show_water_t13)
 
         self.pushButton_t13_electric.clicked.connect(self.show_ElectEn_t13)
@@ -21370,7 +21374,7 @@ class Ui_MainWindow(object):
         global year_spin_a61a
         month_combo_a61a = self.comboBox_3.currentText()
         year_spin_a61a = self.spinBox_3.value()
-        self.ElectEn.show()
+        self.ElectEn_a61a.show()
 
     def show_gas_t13(self):
         global month_combo_t13
@@ -21383,7 +21387,7 @@ class Ui_MainWindow(object):
         global year_spin_a61a
         month_combo_a61a = self.comboBox_3.currentText()
         year_spin_a61a = self.spinBox_3.value()
-        self.gas.show()
+        self.gas_a61a.show()
 
     def show_trash_t13(self):
         global month_combo_t13
@@ -21396,7 +21400,7 @@ class Ui_MainWindow(object):
         global year_spin_a61a
         month_combo_a61a = self.comboBox_3.currentText()
         year_spin_a61a = self.spinBox_3.value()
-        self.trash.show()
+        self.trash_a61a.show()
 
     def show_internet_t13(self):
         global month_combo_t13
@@ -21422,12 +21426,27 @@ class ElectEn(QtWidgets.QDialog, ElectricalEnergy.Ui_Dialog):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
+class ElectEn_a61a(QtWidgets.QDialog, ElectricalEnergy_a61a.Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+
 class gas(QtWidgets.QDialog, gas.Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
+class gas_a61a(QtWidgets.QDialog, gas_a61a.Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+
 class trash(QtWidgets.QDialog, trash.Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+
+class trash_a61a(QtWidgets.QDialog, trash_a61a.Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна

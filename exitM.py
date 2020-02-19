@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys
+import sys, MainMenu
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -33,6 +33,8 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "<html><head/><body><p align=\"center\">Все несохраненные данные будут потеряны.</p><p align=\"center\">Все равно выйти?</p></body></html>"))
 
     def accept_data(self):
+        MainMenu.cur.close()
+        MainMenu.con.close()
         sys.exit()
     def reject_data(self):
         self.close()

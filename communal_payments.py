@@ -1,23 +1,15 @@
 # communal_payments Rybkin Nikita Igorevich
-# v 0.3
+# v 0.4
 
 import sys, MainMenu, save, exitM
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QGridLayout, QLabel, QApplication
 
+
 # MainMenu.month_combo_t13 #глобальная переменная с месяцем платежа Толстого 13
 # MainMenu.month_combo_a61a #глобальная переменная с месяцем платежа Андреевская 61А
 # MainMenu.year_spin_t13 #глобальная переменная с годом платежа Толстого 13
 # MainMenu.year_spin_a61a #глобальная переменная с годом платежа Андреевская 61А
-
-# def test33(self):
-#     if 'MainMenu.month_combo_t13' in globals():
-#         print('yes')
-#     else:
-#         print('no')
-
-# запуск
-# update_DB.sqlite_update_db()
 
 
 class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
@@ -44,8 +36,6 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
 
     def show_save_db(self):
         MainMenu.con.commit()
-        MainMenu.cur.close()
-        MainMenu.con.close()
         self.save.show()
 
     def show_exitM(self):

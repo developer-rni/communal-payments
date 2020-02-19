@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Расчет газоснабжения</string>
+   <string>Расчет газоснабжения Толстого 13</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -65,8 +65,11 @@
       <property name="decimals">
        <number>6</number>
       </property>
-      <property name="value">
+      <property name="singleStep">
        <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.000000000000000</double>
       </property>
      </widget>
     </item>

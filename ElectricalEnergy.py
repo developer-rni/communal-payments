@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import MainMenu, sqlite3
+import sys, MainMenu, sqlite3
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -58,7 +58,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Расчет электроэнергии"))
+        Dialog.setWindowTitle(_translate("Dialog", "Расчет электроэнергии Толстого 13"))
         self.label.setText(_translate("Dialog", "Показания на этот месяц"))
         self.label_2.setText(_translate("Dialog", "Норма в этом месяце"))
         self.label_3.setText(_translate("Dialog", "Цена за поподание в норму"))
@@ -124,7 +124,6 @@ class Ui_Dialog(object):
 
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()

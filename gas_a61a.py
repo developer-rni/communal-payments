@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'cd_water.ui'
+# Form implementation generated from reading ui file 'cd_gas_a61a.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -12,7 +12,7 @@ import sys, MainMenu
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 291)
+        Dialog.resize(400, 300)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(30, 240, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
@@ -35,6 +35,9 @@ class Ui_Dialog(object):
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
         self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
+        self.doubleSpinBox.setDecimals(6)
+        self.doubleSpinBox.setSingleStep(1.0)
+        self.doubleSpinBox.setProperty("value", 0.0)
         self.doubleSpinBox.setObjectName("doubleSpinBox")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox)
         self.label_3 = QtWidgets.QLabel(self.formLayoutWidget)
@@ -51,69 +54,65 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Расчет водоснабжения Толстого 13"))
+        Dialog.setWindowTitle(_translate("Dialog", "Расчет газоснабжения Андреевская 61А"))
         self.label.setText(_translate("Dialog", "Показания на этот месяц"))
-        self.label_2.setText(_translate("Dialog", "Цена за водоснабжение"))
-        self.label_3.setText(_translate("Dialog", "Цена за водоотведение"))
+        self.label_2.setText(_translate("Dialog", "Цена за 1"))
+        self.label_3.setText(_translate("Dialog", "Коэффициент"))
 
     def acept_data(self):
-        global water_this_month
-        global water_supply
-        global water_drain
+        global gas_this_month
+        global gas_unit_price
+        global gas_coefficient
 
-        water_this_month = self.spinBox.value()
-        water_supply = self.doubleSpinBox.value()
-        water_drain = self.doubleSpinBox_2.value()
+        gas_this_month = self.spinBox.value()
+        gas_unit_price = self.doubleSpinBox.value()
+        gas_coefficient = self.doubleSpinBox_2.value()
 
-        water_unit_price = float(water_supply) + float(water_drain)
-
-        self.sqlite_update_db(water_this_month, water_unit_price)
+        self.sqlite_update_db(gas_this_month, gas_unit_price, gas_coefficient)
         self.close()
     def reject_data(self):
         self.close()
 
-    def sqlite_update_db(self, nb1, nb2):
+    def sqlite_update_db(self, nb1, nb2, nb3):
 
-        year_addr = str(MainMenu.year_spin_t13) + '_t13'
+        year_addr = str(MainMenu.year_spin_a61a) + '_a61a'
 
-        payment_type1 = 'water_this_month'
-        payment_type2 = 'water_unit_price'
-
+        payment_type1 = 'gas_this_month'
+        payment_type2 = 'gas_unit_price'
+        payment_type3 = 'gas_coefficient'
 
         number1 = nb1
         number2 = nb2
+        number3 = nb3
 
-
-        if MainMenu.month_combo_t13 == 'Январь':
+        if MainMenu.month_combo_a61a == 'Январь':
             what_month = 'jan'
-        elif MainMenu.month_combo_t13 == 'Февраль':
+        elif MainMenu.month_combo_a61a == 'Февраль':
             what_month = 'feb'
-        elif MainMenu.month_combo_t13 == 'Март':
+        elif MainMenu.month_combo_a61a == 'Март':
             what_month = 'mar'
-        elif MainMenu.month_combo_t13 == 'Апрель':
+        elif MainMenu.month_combo_a61a == 'Апрель':
             what_month = 'apr'
-        elif MainMenu.month_combo_t13 == 'Май':
+        elif MainMenu.month_combo_a61a == 'Май':
             what_month = 'may'
-        elif MainMenu.month_combo_t13 == 'Июнь':
+        elif MainMenu.month_combo_a61a == 'Июнь':
             what_month = 'jun'
-        elif MainMenu.month_combo_t13 == 'Июль':
+        elif MainMenu.month_combo_a61a == 'Июль':
             what_month = 'jul'
-        elif MainMenu.month_combo_t13 == 'Август':
+        elif MainMenu.month_combo_a61a == 'Август':
             what_month = 'aug'
-        elif MainMenu.month_combo_t13 == 'Сентябрь':
+        elif MainMenu.month_combo_a61a == 'Сентябрь':
             what_month = 'sept'
-        elif MainMenu.month_combo_t13 == 'Октябрь':
+        elif MainMenu.month_combo_a61a == 'Октябрь':
             what_month = 'oct'
-        elif MainMenu.month_combo_t13 == 'Ноябрь':
+        elif MainMenu.month_combo_a61a == 'Ноябрь':
             what_month = 'nov'
         else:
             what_month = 'dec'
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number2, what_month))
-
-
-
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, number3, what_month))
 
 
 if __name__ == "__main__":

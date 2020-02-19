@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Расчет телефона</string>
+   <string>Расчет телефона Толстого 13</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
