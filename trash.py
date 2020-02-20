@@ -102,6 +102,39 @@ class Ui_Dialog(object):
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number2, what_month))
 
+        trash_to_pay = number1 * number2
+        payment_type3 = 'trash_to_pay'
+
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, trash_to_pay, what_month))
+
+        payment_water_pay = 'water_to_pay'
+        payment_energy_pay = 'energy_to_pay'
+        payment_gas_pay = 'gas_to_pay'
+        payment_trash_pay = 'trash_to_pay'
+        payment_internet_pay = 'internet_to_pay'
+        payment_phone_to_pay = 'phone_to_pay'
+
+        [water_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_water_pay, year_addr, what_month))
+        [energy_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_energy_pay, year_addr, what_month))
+        [gas_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_gas_pay, year_addr, what_month))
+        [trash_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_trash_pay, year_addr, what_month))
+        [internet_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_internet_pay, year_addr, what_month))
+        [phone_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_phone_to_pay, year_addr, what_month))
+
+        spisok = [water_result, energy_result, gas_result, trash_result, internet_result, phone_result]
+
+        i = 0
+        for element in spisok:
+            if element is None:
+                spisok[i] = 0
+            i += 1
+
+        total_result = spisok[0] + spisok[1] + spisok[2] + spisok[3] + spisok[4] + spisok[5]
+
+        payment_total = 'total'
+
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()

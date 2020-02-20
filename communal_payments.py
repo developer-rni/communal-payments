@@ -1,10 +1,11 @@
 # communal_payments Rybkin Nikita Igorevich
-# v 0.4
+# v 0.5
 
 import sys, MainMenu, save, exitM
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QGridLayout, QLabel, QApplication
 
+#Сделать формулы и заполнить бпустые ячейки в БД
 
 # MainMenu.month_combo_t13 #глобальная переменная с месяцем платежа Толстого 13
 # MainMenu.month_combo_a61a #глобальная переменная с месяцем платежа Андреевская 61А
@@ -35,6 +36,7 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
         self.action_generalreport.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(5))  # Открыть таблицу отчет при нажатии на Андреевская61->Отчет
 
     def show_save_db(self):
+
         MainMenu.con.commit()
         self.save.show()
 

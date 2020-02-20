@@ -94,33 +94,109 @@ class Ui_Dialog(object):
 
         if MainMenu.month_combo_t13 == 'Январь':
             what_month = 'jan'
+            what_month_old = 'dec'
         elif MainMenu.month_combo_t13 == 'Февраль':
             what_month = 'feb'
+            what_month_old = 'jan'
         elif MainMenu.month_combo_t13 == 'Март':
             what_month = 'mar'
+            what_month_old = 'feb'
         elif MainMenu.month_combo_t13 == 'Апрель':
             what_month = 'apr'
+            what_month_old = 'mar'
         elif MainMenu.month_combo_t13 == 'Май':
             what_month = 'may'
+            what_month_old = 'apr'
         elif MainMenu.month_combo_t13 == 'Июнь':
             what_month = 'jun'
+            what_month_old = 'may'
         elif MainMenu.month_combo_t13 == 'Июль':
             what_month = 'jul'
+            what_month_old = 'jun'
         elif MainMenu.month_combo_t13 == 'Август':
             what_month = 'aug'
+            what_month_old = 'jul'
         elif MainMenu.month_combo_t13 == 'Сентябрь':
             what_month = 'sept'
+            what_month_old = 'aug'
         elif MainMenu.month_combo_t13 == 'Октябрь':
             what_month = 'oct'
+            what_month_old = 'sept'
         elif MainMenu.month_combo_t13 == 'Ноябрь':
             what_month = 'nov'
+            what_month_old = 'oct'
         else:
             what_month = 'dec'
+            what_month_old = 'nov'
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number2, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, number3, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type4, number4, what_month))
+
+        year_addr_prev = MainMenu.year_spin_t13 - 1
+        year_addr_previous = str(year_addr_prev) + '_t13'
+
+        if what_month == 'jan':
+            year_addr_old = year_addr_previous
+        else:
+            year_addr_old = year_addr
+
+        payment_type_old = 'energy_this_month'
+
+        [energy_last_month], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_type_old, year_addr_old, what_month_old))
+
+        payment_type5 = 'energy_last_month'
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type5, energy_last_month, what_month))
+
+        energy_difference = energy_this_month - energy_last_month
+        payment_type6 = 'energy_difference'
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type6, energy_difference, what_month))
+
+        # energy_difference - 293
+        # energy_unit_price - 316
+        # energy_price_per_norm - 3.96
+        # energy_excess_prise - 5.53
+
+        if energy_difference <= energy_unit_price:
+            energy_to_pay = energy_difference * energy_price_per_norm
+        else:
+            q1 = energy_difference - energy_unit_price
+            q2 = q1 * energy_excess_prise
+            q3 = energy_unit_price * energy_price_per_norm
+            energy_to_pay = q2 + q3
+
+        payment_type7 = 'energy_to_pay'
+
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type7, energy_to_pay, what_month))
+
+        payment_water_pay = 'water_to_pay'
+        payment_energy_pay = 'energy_to_pay'
+        payment_gas_pay = 'gas_to_pay'
+        payment_trash_pay = 'trash_to_pay'
+        payment_internet_pay = 'internet_to_pay'
+        payment_phone_to_pay = 'phone_to_pay'
+
+        [water_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_water_pay, year_addr, what_month))
+        [energy_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_energy_pay, year_addr, what_month))
+        [gas_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_gas_pay, year_addr, what_month))
+        [trash_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_trash_pay, year_addr, what_month))
+        [internet_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_internet_pay, year_addr, what_month))
+        [phone_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_phone_to_pay, year_addr, what_month))
+
+        spisok = [water_result, energy_result, gas_result, trash_result, internet_result, phone_result]
+
+        i = 0
+        for element in spisok:
+            if element is None:
+                spisok[i] = 0
+            i += 1
+
+        total_result = spisok[0] + spisok[1] + spisok[2] + spisok[3] + spisok[4] + spisok[5]
+
+        payment_total = 'total'
+
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))
 
 
 if __name__ == "__main__":
