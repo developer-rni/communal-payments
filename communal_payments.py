@@ -1,5 +1,5 @@
 # communal_payments Rybkin Nikita Igorevich
-# v 0.5
+# v 0.6
 
 import sys, MainMenu, save, exitM
 from PyQt5 import QtWidgets, QtCore, QtGui

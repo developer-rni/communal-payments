@@ -35,7 +35,7 @@ class Ui_Dialog(object):
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
         self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
-        self.doubleSpinBox.setDecimals(6)
+        self.doubleSpinBox.setDecimals(5)
         self.doubleSpinBox.setSingleStep(1.0)
         self.doubleSpinBox.setProperty("value", 0.0)
         self.doubleSpinBox.setObjectName("doubleSpinBox")
@@ -87,33 +87,116 @@ class Ui_Dialog(object):
 
         if MainMenu.month_combo_a61a == 'Январь':
             what_month = 'jan'
+            what_month_old = 'dec'
         elif MainMenu.month_combo_a61a == 'Февраль':
             what_month = 'feb'
+            what_month_old = 'jan'
         elif MainMenu.month_combo_a61a == 'Март':
             what_month = 'mar'
+            what_month_old = 'feb'
         elif MainMenu.month_combo_a61a == 'Апрель':
             what_month = 'apr'
+            what_month_old = 'mar'
         elif MainMenu.month_combo_a61a == 'Май':
             what_month = 'may'
+            what_month_old = 'apr'
         elif MainMenu.month_combo_a61a == 'Июнь':
             what_month = 'jun'
+            what_month_old = 'may'
         elif MainMenu.month_combo_a61a == 'Июль':
             what_month = 'jul'
+            what_month_old = 'jun'
         elif MainMenu.month_combo_a61a == 'Август':
             what_month = 'aug'
+            what_month_old = 'jul'
         elif MainMenu.month_combo_a61a == 'Сентябрь':
             what_month = 'sept'
+            what_month_old = 'aug'
         elif MainMenu.month_combo_a61a == 'Октябрь':
             what_month = 'oct'
+            what_month_old = 'sept'
         elif MainMenu.month_combo_a61a == 'Ноябрь':
             what_month = 'nov'
+            what_month_old = 'oct'
         else:
             what_month = 'dec'
+            what_month_old = 'nov'
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number2, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, number3, what_month))
 
+        # -------
+        year_addr_prev = MainMenu.year_spin_a61a - 1
+        year_addr_previous = str(year_addr_prev) + '_a61a'
+
+        if what_month == 'jan':
+            year_addr_old = year_addr_previous
+        else:
+            year_addr_old = year_addr
+
+        payment_type_old = 'gas_this_month'
+
+        [gas_last_month], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_type_old, year_addr_old, what_month_old))
+
+        payment_type4 = 'gas_last_month'
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type4, gas_last_month, what_month))
+
+        gas_difference = gas_this_month - gas_last_month
+        payment_type5 = 'gas_difference'
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type5, gas_difference, what_month))
+
+        gas_to_pay = round((gas_difference * gas_unit_price * gas_coefficient), 2)
+        payment_type6 = 'gas_to_pay'
+
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type6, gas_to_pay, what_month))
+
+
+        # /запись итого в данную таблицу/
+        # ---------------------------
+
+        payment_energy_pay = 'energy_to_pay'
+        payment_gas_pay = 'gas_to_pay'
+        payment_trash_pay = 'trash_to_pay'
+
+        [energy_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_energy_pay, year_addr, what_month))
+        [gas_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_gas_pay, year_addr, what_month))
+        [trash_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_trash_pay, year_addr, what_month))
+
+        spisok = [energy_result, gas_result, trash_result]
+
+        i = 0
+        for element in spisok:
+            if element is None:
+                spisok[i] = 0
+            i += 1
+
+        total_result = spisok[0] + spisok[1] + spisok[2]
+
+        payment_total = 'total'
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))
+
+
+        # /запись в общий отчет двух таблиц/
+        # ---------------------------
+
+        year_addr_t13 = str(MainMenu.year_spin_a61a) + '_t13'
+        year_addr_a61a = year_addr
+
+        [result_t13], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_total, year_addr_t13, what_month))
+        [result_a61a], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_total, year_addr_a61a, what_month))
+
+        if result_t13 is None:
+            result_t13 = 0
+        if result_a61a is None:
+            result_a61a = 0
+
+        general_total_result = result_t13 + result_a61a
+
+        t_general_total_to_pay = 'general_total_to_pay'
+        t_general_month = what_month + '_general_total'
+        what_year = MainMenu.year_spin_a61a
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE year="{}"'.format(t_general_total_to_pay, t_general_month, general_total_result, what_year))
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

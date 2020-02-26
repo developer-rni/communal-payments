@@ -35,7 +35,7 @@ class Ui_Dialog(object):
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
         self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
-        self.doubleSpinBox.setDecimals(6)
+        self.doubleSpinBox.setDecimals(5)
         self.doubleSpinBox.setProperty("value", 0.0)
         self.doubleSpinBox.setObjectName("doubleSpinBox")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox)
@@ -153,13 +153,16 @@ class Ui_Dialog(object):
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type6, gas_to_pay, what_month))
 
+
+        # /запись итого в данную таблицу/
+        # ---------------------------
+
         payment_water_pay = 'water_to_pay'
         payment_energy_pay = 'energy_to_pay'
         payment_gas_pay = 'gas_to_pay'
         payment_trash_pay = 'trash_to_pay'
         payment_internet_pay = 'internet_to_pay'
         payment_phone_to_pay = 'phone_to_pay'
-
         [water_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_water_pay, year_addr, what_month))
         [energy_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_energy_pay, year_addr, what_month))
         [gas_result], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_gas_pay, year_addr, what_month))
@@ -178,8 +181,30 @@ class Ui_Dialog(object):
         total_result = spisok[0] + spisok[1] + spisok[2] + spisok[3] + spisok[4] + spisok[5]
 
         payment_total = 'total'
-
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))
+
+
+        # /запись в общий отчет двух таблиц/
+        # ---------------------------
+
+        year_addr_t13 = year_addr
+        year_addr_a61a = str(MainMenu.year_spin_t13) + '_a61a'
+
+
+        [result_t13], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_total, year_addr_t13, what_month))
+        [result_a61a], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_total, year_addr_a61a, what_month))
+
+        if result_t13 is None:
+            result_t13 = 0
+        if result_a61a is None:
+            result_a61a = 0
+
+        general_total_result = result_t13 + result_a61a
+
+        t_general_total_to_pay = 'general_total_to_pay'
+        t_general_month = what_month + '_general_total'
+        what_year = MainMenu.year_spin_t13
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE year="{}"'.format(t_general_total_to_pay, t_general_month, general_total_result, what_year))
 
 
 
