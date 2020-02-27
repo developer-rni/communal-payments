@@ -30,9 +30,9 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
         # self.action_download_GD.triggered.connect(self.)  # Закрыть программу при нажатии Файл->Залить в облако (google drive)
         self.action_exit.triggered.connect(self.show_exitM)  # Закрыть программу при нажатии Файл->Выход
         self.action_t13_calculate.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(1))  # Открыть окно "что платим" при нажатии на Толстого13->Рассчитать
-        self.action_t13_report.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(3))  # Открыть таблицу отчет при нажатии на Толстого13->Отчет
+        self.action_t13_report.triggered.connect(self.show_report_t13)  # Открыть таблицу отчет при нажатии на Толстого13->Отчет
         self.action_a61a_calculate.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(2))  # Открыть окно "что платим" при нажатии на Андреевская61->Рассчитать
-        self.action_a61a_report.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(4))  # Открыть таблицу отчет при нажатии на Андреевская61->Отчет
+        self.action_a61a_report.triggered.connect(self.show_report_a61a)  # Открыть таблицу отчет при нажатии на Андреевская61->Отчет
         self.action_generalreport.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(5))  # Открыть таблицу отчет при нажатии на Андреевская61->Отчет
 
     def show_save_db(self):
@@ -42,6 +42,13 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
 
     def show_exitM(self):
         self.exitM.show()
+
+    def show_report_t13(self):
+        MainMenu.Ui_MainWindow.data_update_t13(self)
+        self.stackedWidget.setCurrentIndex(3)
+    def show_report_a61a(self):
+        MainMenu.Ui_MainWindow.data_update_a61a(self)
+        self.stackedWidget.setCurrentIndex(4)
 
 
 class save(QtWidgets.QDialog, save.Ui_Dialog):

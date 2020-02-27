@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import water, ElectricalEnergy, ElectricalEnergy_a61a, gas, gas_a61a, trash, trash_a61a, internet, phone, save, sqlite3
+import water, ElectricalEnergy, ElectricalEnergy_a61a, gas, gas_a61a, trash, trash_a61a, internet, phone, save, sqlite3, updatetable
 
 #сразу соединяемся с базой данных и устанавливаем курсор
 con = sqlite3.connect('./data/data_cp.db')
@@ -13582,6 +13582,12 @@ class Ui_MainWindow(object):
         self.tabWidget_2030_year_3.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def data_update_t13(self):
+        updatetable.upd_table_cl.upd_t_t13(self)
+    def data_update_a61a(self):
+        updatetable.upd_table_cl.upd_t_a61a(self)
+
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Расчет коммунальных услуг"))
@@ -21460,6 +21466,7 @@ class phone(QtWidgets.QDialog, phone.Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+
 
 
 if __name__ == "__main__":
