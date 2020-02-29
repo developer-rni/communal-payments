@@ -1,7 +1,7 @@
 # communal_payments Rybkin Nikita Igorevich
-# v 0.7
+# v 1.1
 
-import sys, MainMenu, save, exitM
+import sys, MainMenu, save, exitM, upload_gd, upload_error, upload_success
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QGridLayout, QLabel, QApplication
 
@@ -23,11 +23,13 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
         self.InitUI()
         self.save = save()
         self.exitM = exitM()
+        self.upload_success = upload_success()
+        self.upload_error = upload_error()
 
 
     def InitUI(self):
         self.action_save.triggered.connect(self.show_save_db)  # Вывести окно и сохранить данные в бд при нажатии Файл -> сохронить
-        # self.action_download_GD.triggered.connect(self.)  # Закрыть программу при нажатии Файл -> Залить в облако (google drive)
+        self.action_download_GD.triggered.connect(self.upload_BD)  # Закрыть программу при нажатии Файл -> Залить в облако (google drive)
         self.action_exit.triggered.connect(self.show_exitM)  # Закрыть программу при нажатии Файл -> Выход
         self.action_t13_calculate.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(1))  # Открыть окно "что платим" при нажатии на Толстого13 -> Рассчитать
         self.action_t13_report.triggered.connect(self.show_report_t13)  # Открыть таблицу отчет при нажатии на Толстого13 -> Отчет
@@ -51,6 +53,13 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
     def show_general_report(self):
         MainMenu.Ui_MainWindow.data_update_general_total(self)
         self.stackedWidget.setCurrentIndex(5)
+    def upload_BD(self):
+        result_upload = upload_gd.upload_file.upload_f(self)
+        if result_upload == True:
+            self.upload_success.show()
+        elif result_upload == False:
+            self.upload_error.show()
+
 
 
 class save(QtWidgets.QDialog, save.Ui_Dialog):
@@ -59,6 +68,16 @@ class save(QtWidgets.QDialog, save.Ui_Dialog):
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
 class exitM(QtWidgets.QDialog, exitM.Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+
+class upload_success(QtWidgets.QDialog, upload_success.Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+
+class upload_error(QtWidgets.QDialog, upload_error.Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
