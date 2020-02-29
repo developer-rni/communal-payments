@@ -280,7 +280,6 @@ class upd_table_cl(object):
 
 
     def upd_general_total(self):
-        print('YES')
         year = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030]
         month = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
         for _year in year:

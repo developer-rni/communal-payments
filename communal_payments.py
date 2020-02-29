@@ -1,16 +1,9 @@
 # communal_payments Rybkin Nikita Igorevich
-# v 1.1
+# v 1.2
 
 import sys, MainMenu, save, exitM, upload_gd, upload_error, upload_success
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QGridLayout, QLabel, QApplication
-
-#Сделать формулы и заполнить бпустые ячейки в БД
-
-# MainMenu.month_combo_t13 #глобальная переменная с месяцем платежа Толстого 13
-# MainMenu.month_combo_a61a #глобальная переменная с месяцем платежа Андреевская 61А
-# MainMenu.year_spin_t13 #глобальная переменная с годом платежа Толстого 13
-# MainMenu.year_spin_a61a #глобальная переменная с годом платежа Андреевская 61А
 
 
 class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
