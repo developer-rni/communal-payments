@@ -1,5 +1,6 @@
+#!/usr/bin/python3
 # communal_payments Rybkin Nikita Igorevich
-# v 1.2
+# v 1.3
 
 import sys, MainMenu, save, exitM, upload_gd, upload_error, upload_success
 from PyQt5 import QtWidgets, QtCore, QtGui

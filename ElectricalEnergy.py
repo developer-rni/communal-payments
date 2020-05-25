@@ -159,12 +159,12 @@ class Ui_Dialog(object):
         # energy_excess_prise - 5.53
 
         if energy_difference <= energy_unit_price:
-            energy_to_pay = energy_difference * energy_price_per_norm
+            energy_to_pay = round((energy_difference * energy_price_per_norm), 2)
         else:
             q1 = energy_difference - energy_unit_price
             q2 = q1 * energy_excess_prise
             q3 = energy_unit_price * energy_price_per_norm
-            energy_to_pay = q2 + q3
+            energy_to_pay = round((q2 + q3), 2)
 
         payment_type7 = 'energy_to_pay'
 

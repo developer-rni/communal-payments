@@ -43,12 +43,14 @@ class upd_table_cl(object):
                 [gas_difference], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_difference', _year_, _month))
                 [gas_unit_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_unit_price', _year_, _month))
                 [gas_coefficient], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_coefficient', _year_, _month))
+                [gas_vdgo], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_vdgo', _year_, _month))
                 [gas_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_to_pay', _year_, _month))
                 gtm = gas_this_month
                 glm = gas_last_month
                 gd = gas_difference
                 gup = gas_unit_price
                 gc = gas_coefficient
+                gv = gas_vdgo
                 gtp = gas_to_pay
         
                 # trash
@@ -134,6 +136,11 @@ class upd_table_cl(object):
                 item = QtWidgets.QTableWidgetItem(str(gc))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(4, 2, item)' % (_year, _month))
+
+                item = QtWidgets.QTableWidgetItem(str(gv))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(5, 2, item)' % (_year, _month))
+
                 item = QtWidgets.QTableWidgetItem(str(gtp))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(6, 2, item)' % (_year, _month))

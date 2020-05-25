@@ -24,6 +24,7 @@ class Ui_Dialog(object):
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setContentsMargins(0, 0, 0, 0)
         self.formLayout.setObjectName("formLayout")
+
         self.label = QtWidgets.QLabel(self.formLayoutWidget)
         self.label.setObjectName("label")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
@@ -31,6 +32,7 @@ class Ui_Dialog(object):
         self.spinBox.setMaximum(99999)
         self.spinBox.setObjectName("spinBox")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.spinBox)
+
         self.label_2 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
@@ -40,12 +42,22 @@ class Ui_Dialog(object):
         self.doubleSpinBox.setProperty("value", 0.0)
         self.doubleSpinBox.setObjectName("doubleSpinBox")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox)
+
         self.label_3 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_3.setObjectName("label_3")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_3)
         self.doubleSpinBox_2 = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
         self.doubleSpinBox_2.setObjectName("doubleSpinBox_2")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_2)
+
+        '''вдго'''
+        self.label_4 = QtWidgets.QLabel(self.formLayoutWidget)
+        self.label_4.setObjectName("label_4")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_4)
+        self.doubleSpinBox_3 = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
+        self.doubleSpinBox_3.setMaximum(9999)
+        self.doubleSpinBox_3.setObjectName("doubleSpinBox_3")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_3)
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(self.acept_data)
@@ -58,32 +70,37 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Показания на этот месяц"))
         self.label_2.setText(_translate("Dialog", "Цена за 1"))
         self.label_3.setText(_translate("Dialog", "Коэффициент"))
+        self.label_4.setText(_translate("Dialog", "ВДГО"))
 
     def acept_data(self):
         global gas_this_month
         global gas_unit_price
         global gas_coefficient
+        global gas_vdgo
 
         gas_this_month = self.spinBox.value()
         gas_unit_price = self.doubleSpinBox.value()
         gas_coefficient = self.doubleSpinBox_2.value()
+        gas_vdgo = self.doubleSpinBox_3.value()
 
-        self.sqlite_update_db(gas_this_month, gas_unit_price, gas_coefficient)
+        self.sqlite_update_db(gas_this_month, gas_unit_price, gas_coefficient, gas_vdgo)
         self.close()
     def reject_data(self):
         self.close()
 
-    def sqlite_update_db(self, nb1, nb2, nb3):
+    def sqlite_update_db(self, nb1, nb2, nb3, nb4):
 
         year_addr = str(MainMenu.year_spin_a61a) + '_a61a'
 
         payment_type1 = 'gas_this_month'
         payment_type2 = 'gas_unit_price'
         payment_type3 = 'gas_coefficient'
+        payment_type4 = 'gas_vdgo'
 
         number1 = nb1
         number2 = nb2
         number3 = nb3
+        number4 = nb4
 
         if MainMenu.month_combo_a61a == 'Январь':
             what_month = 'jan'
@@ -125,6 +142,7 @@ class Ui_Dialog(object):
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number2, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, number3, what_month))
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type4, number4, what_month))
 
         # -------
         year_addr_prev = MainMenu.year_spin_a61a - 1
@@ -139,17 +157,17 @@ class Ui_Dialog(object):
 
         [gas_last_month], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_type_old, year_addr_old, what_month_old))
 
-        payment_type4 = 'gas_last_month'
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type4, gas_last_month, what_month))
+        payment_type5 = 'gas_last_month'
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type5, gas_last_month, what_month))
 
         gas_difference = gas_this_month - gas_last_month
-        payment_type5 = 'gas_difference'
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type5, gas_difference, what_month))
+        payment_type6 = 'gas_difference'
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type6, gas_difference, what_month))
 
-        gas_to_pay = round((gas_difference * gas_unit_price * gas_coefficient), 2)
-        payment_type6 = 'gas_to_pay'
+        gas_to_pay = round((gas_difference * gas_unit_price * gas_coefficient) + number4, 2)
+        payment_type7 = 'gas_to_pay'
 
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type6, gas_to_pay, what_month))
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type7, gas_to_pay, what_month))
 
 
         # /запись итого в данную таблицу/
@@ -171,7 +189,7 @@ class Ui_Dialog(object):
                 spisok[i] = 0
             i += 1
 
-        total_result = spisok[0] + spisok[1] + spisok[2]
+        total_result = round((spisok[0] + spisok[1] + spisok[2]), 2)
 
         payment_total = 'total'
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))

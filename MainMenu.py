@@ -67,13 +67,13 @@ class Ui_MainWindow(object):
         self.pushButton_t13_gas.setIconSize(QtCore.QSize(64, 64))
         self.pushButton_t13_gas.setObjectName("pushButton_t13_gas")
         self.gridLayout_2.addWidget(self.pushButton_t13_gas, 1, 0, 1, 1)
-        self.pushButton_t13_phone = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        '''self.pushButton_t13_phone = QtWidgets.QPushButton(self.gridLayoutWidget_2)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap("ui/ui_image/telephone.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_t13_phone.setIcon(icon4)
         self.pushButton_t13_phone.setIconSize(QtCore.QSize(64, 64))
         self.pushButton_t13_phone.setObjectName("pushButton_t13_phone")
-        self.gridLayout_2.addWidget(self.pushButton_t13_phone, 2, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.pushButton_t13_phone, 2, 1, 1, 1)'''
         self.pushButton_t13_water = QtWidgets.QPushButton(self.gridLayoutWidget_2)
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap("ui/ui_image/water.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -13598,7 +13598,7 @@ class Ui_MainWindow(object):
         self.pushButton_t13_internet.setText(_translate("MainWindow", "Интернет"))
         self.pushButton_t13_electric.setText(_translate("MainWindow", "Электроэнергия"))
         self.pushButton_t13_gas.setText(_translate("MainWindow", "Газоснабжение"))
-        self.pushButton_t13_phone.setText(_translate("MainWindow", "Телефон"))
+        '''self.pushButton_t13_phone.setText(_translate("MainWindow", "Телефон"))'''
         self.pushButton_t13_water.setText(_translate("MainWindow", "Водоснабжение"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">Толстого 13</span></p></body></html>"))
         self.spinBox_2.setSuffix(_translate("MainWindow", " год"))
@@ -21342,7 +21342,7 @@ class Ui_MainWindow(object):
         self.gas = gas()
         self.trash = trash()
         self.internet = internet()
-        self.phone = phone()
+        '''self.phone = phone()'''
 
         self.ElectEn_a61a = ElectEn_a61a()
         self.gas_a61a = gas_a61a()
@@ -21361,7 +21361,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_t13_internet.clicked.connect(self.show_internet_t13)
 
-        self.pushButton_t13_phone.clicked.connect(self.show_phone_t13)
+        '''self.pushButton_t13_phone.clicked.connect(self.show_phone_t13)'''
 
 
     def show_water_t13(self):
@@ -21417,12 +21417,12 @@ class Ui_MainWindow(object):
         year_spin_t13 = self.spinBox_2.value()
         self.internet.show()
 
-    def show_phone_t13(self):
+'''    def show_phone_t13(self):
         global month_combo_t13
         global year_spin_t13
         month_combo_t13 = self.comboBox_2.currentText()
         year_spin_t13 = self.spinBox_2.value()
-        self.phone.show()
+        self.phone.show()'''
 
 class water(QtWidgets.QDialog, water.Ui_Dialog):
     def __init__(self):
@@ -21464,10 +21464,10 @@ class internet(QtWidgets.QDialog, internet.Ui_Dialog):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
-class phone(QtWidgets.QDialog, phone.Ui_Dialog):
+'''class phone(QtWidgets.QDialog, phone.Ui_Dialog):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайна'''
 
 
 

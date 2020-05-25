@@ -146,7 +146,7 @@ class Ui_Dialog(object):
         [water_difference_old], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_type_old2, year_addr_old, what_month_old))
         [water_unit_price_old], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_type_old3, year_addr_old, what_month_old))
         # water_unit_price_old = water_unit_price_old.replace(',', '.')
-        water_to_pay = float(water_difference_old) * float(water_unit_price_old)
+        water_to_pay = round((float(water_difference_old) * float(water_unit_price_old)), 2)
 
         payment_type5 = 'water_to_pay'
 

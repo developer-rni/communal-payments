@@ -1,0 +1,5 @@
+Build v1.3
+-----
+-Удален домашний телефон / Home phone removed
+-Добавленна возможность вносить ВДГО в газ / Added ability to add VDGO to gas
+-----

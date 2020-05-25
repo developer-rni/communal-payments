@@ -102,7 +102,7 @@ class Ui_Dialog(object):
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number2, what_month))
 
-        trash_to_pay = number1 * number2
+        trash_to_pay = round((number1 * number2), 2)
         payment_type3 = 'trash_to_pay'
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, trash_to_pay, what_month))

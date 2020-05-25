@@ -83,6 +83,20 @@
     <item row="2" column="1">
      <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
     </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>ВДГО</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+      <property name="maximum">
+       <double>9999.989999999999782</double>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
