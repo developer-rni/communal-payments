@@ -198,7 +198,7 @@ class Ui_Dialog(object):
         else:
             what_month_change = 'dec'
         
-        print ("nb1 = " + str(nb1), "tx1 = " + str(tx1), "nb2 = " + str(nb2), "tx2 = " + str(tx2), "nb3 = " + str(nb3), "tx3 = " + str(tx3), "nb4 = " + str(nb4), "tx4 = " + str(tx4), "nb5 = " + str(nb5), "tx5 = " + str(tx5), year_addr_change, month_change)
+        #print ("nb1 = " + str(nb1), "tx1 = " + str(tx1), "nb2 = " + str(nb2), "tx2 = " + str(tx2), "nb3 = " + str(nb3), "tx3 = " + str(tx3), "nb4 = " + str(nb4), "tx4 = " + str(tx4), "nb5 = " + str(nb5), "tx5 = " + str(tx5), year_addr_change, month_change)
         
         cloumn_name_1 = 'water_change'
         cloumn_name_2 = 'water_change_text'
@@ -211,40 +211,134 @@ class Ui_Dialog(object):
         cloumn_name_9 = 'internet_change'
         cloumn_name_10 = 'internet_change_text'
 
-  #      if not tx1:
-  #          tx1 = NULL
-  #      if tx2 == '':
-  #          tx2 = NULL
-  #      if tx3 == '':
-  #          tx3 = NULL
-  #      if tx4 == '':
-  #          tx4 = NULL
-  #      if tx5 == '':
-  #          tx5 = NULL
+        cloumn_name_total = 'total'
 
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_1, nb1, what_month_change))
+        [water_change_slots], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_1, year_addr_change, what_month_change))
+        [energy_change_slots], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_3, year_addr_change, what_month_change))
+        [gas_change_slots], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_5, year_addr_change, what_month_change))
+        [trash_change_slots], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_7, year_addr_change, what_month_change))
+        [internet_change_slots], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_9, year_addr_change, what_month_change))
+
+        [total], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_total, year_addr_change, what_month_change))
+
+        if water_change_slots is None:
+            MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_1, nb1, what_month_change))
+            total = total + nb1
+        else:
+            if nb1 > water_change_slots:
+                water_change_difference = nb1 - water_change_slots
+                total = total + water_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_1, nb1, what_month_change))
+            elif nb1 < water_change_slots:
+                water_change_difference = water_change_slots - nb1
+                total = total - water_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_1, nb1, what_month_change))
+            else:
+                pass
+                
         if tx1:
             MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_2, tx1, what_month_change))
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_3, nb2, what_month_change))
+
+        if energy_change_slots is None:
+            MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_3, nb2, what_month_change))
+            total = total + nb2
+        else:
+            if nb2 > energy_change_slots:
+                energy_change_difference = nb2 - energy_change_slots
+                total = total + energy_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_3, nb2, what_month_change))
+            elif nb2 < energy_change_slots:
+                energy_change_difference = energy_change_slots - nb2
+                total = total - energy_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_3, nb2, what_month_change))
+            else:
+                pass
+
         if tx2:
             MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_4, tx2, what_month_change))
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_5, nb3, what_month_change))
+
+        if gas_change_slots is None:
+            MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_5, nb3, what_month_change))
+            total = total + nb3
+        else:
+            if nb3 > gas_change_slots:
+                gas_change_difference = nb3 - gas_change_slots
+                total = total + gas_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_5, nb3, what_month_change))
+            elif nb3 < gas_change_slots:
+                gas_change_difference = gas_change_slots - nb3
+                total = total - gas_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_5, nb3, what_month_change))
+            else:
+                pass
+        
         if tx3:
             MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_6, tx3, what_month_change))
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_7, nb4, what_month_change))
+
+        if trash_change_slots is None:
+            MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_7, nb4, what_month_change))
+            total = total + nb4
+        else:
+            if nb4 > trash_change_slots:
+                trash_change_difference = nb4 - trash_change_slots
+                total = total + trash_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_7, nb4, what_month_change))
+            elif nb4 < trash_change_slots:
+                trash_change_difference = trash_change_slots - nb4
+                total = total - trash_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_7, nb4, what_month_change))
+            else:
+                pass
+
         if tx4:
             MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_8, tx4, what_month_change))
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_9, nb5, what_month_change))
+
+        if internet_change_slots is None:
+            MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_9, nb5, what_month_change))
+            total = total + nb5
+        else:
+            if nb5 > internet_change_slots:
+                internet_change_difference = nb5 - internet_change_slots
+                total = total + internet_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_9, nb5, what_month_change))
+            elif nb5 < internet_change_slots:
+                internet_change_difference = internet_change_slots - nb5
+                total = total - internet_change_difference
+                MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_9, nb5, what_month_change))
+            else:
+                pass
+
         if tx5:
             MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_10, tx5, what_month_change))
-        #UPDATE "2020_a61a" SET 'gas_vdgo' = 50.5 WHERE month="jun"
 
-        [total_result_old], = MainMenu.cur.execute('SELECT total FROM "{}" WHERE month="{}"'.format(year_addr_change, what_month_change))
 
-        print (total_result_old)
+        MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_total, total, what_month_change))
 
-        total_result_change = nb1 + nb2 + nb3 + nb4 + nb5 + total_result_old
-        MainMenu.cur.execute('UPDATE "{}" SET total = "{}" WHERE month="{}"'.format(year_addr_change, total_result_change, what_month_change))
+        
+        # /запись в общий отчет двух таблиц/
+        # ---------------------------
+
+        year_addr_change_t13 = year_addr_change
+        year_addr_change_a61a = str(year) + '_a61a'
+
+        [result_total_change_t13], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_total, year_addr_change_t13, what_month_change))
+        [result_total_change_a61a], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_total, year_addr_change_a61a, what_month_change))
+
+        print ("t13-total = " + str(result_total_change_t13))
+        print ("a61a-total = " + str(result_total_change_a61a))
+
+        if result_total_change_t13 is None:
+            result_total_change_t13 = 0
+        if result_total_change_a61a is None:
+            result_total_change_a61a = 0
+
+        general_total_result_change = result_total_change_t13 + result_total_change_a61a
+        print (general_total_result_change)
+
+        t_general_total_to_pay = 'general_total_to_pay'
+        t_general_month = what_month_change + '_general_total'
+        what_year_generaltotal_change = year
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE year="{}"'.format(t_general_total_to_pay, t_general_month, general_total_result_change, what_year_generaltotal_change))
 
         
 if __name__ == "__main__":
