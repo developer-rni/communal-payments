@@ -317,15 +317,12 @@ class Ui_Dialog(object):
         
         # /запись в общий отчет двух таблиц/
         # ---------------------------
-
+        
         year_addr_change_t13 = year_addr_change
         year_addr_change_a61a = str(year) + '_a61a'
 
         [result_total_change_t13], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_total, year_addr_change_t13, what_month_change))
         [result_total_change_a61a], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_total, year_addr_change_a61a, what_month_change))
-
-        print ("t13-total = " + str(result_total_change_t13))
-        print ("a61a-total = " + str(result_total_change_a61a))
 
         if result_total_change_t13 is None:
             result_total_change_t13 = 0
@@ -333,7 +330,6 @@ class Ui_Dialog(object):
             result_total_change_a61a = 0
 
         general_total_result_change = result_total_change_t13 + result_total_change_a61a
-        print (general_total_result_change)
 
         t_general_total_to_pay = 'general_total_to_pay'
         t_general_month = what_month_change + '_general_total'

@@ -7,3 +7,8 @@ Build v1.4
 -----
 -Добавлена возможность вносить изменение по каждому виду платежа (Т13 и А61а) / Added the ability to make changes for each type of payment (T13 and A61a)
 -----
+Build v1.4.2
+-----
+-Пофикшен баг с расчетом значения "итого" из двух таблиц / Fixed a bug with the calculation of the "total" value from two tables
+-Изменена таблица отчета за 2020 год (добавлины 3 строчки) / -Changed the report table for 2020 (added 3 lines)
+-----

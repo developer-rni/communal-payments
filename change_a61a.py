@@ -241,8 +241,8 @@ class Ui_Dialog(object):
         # /запись в общий отчет двух таблиц/
         # ---------------------------
 
-        year_addr_change_t13 = year_addr_change
-        year_addr_change_a61a = str(year) + '_a61a'
+        year_addr_change_a61a = year_addr_change
+        year_addr_change_t13 = str(year) + '_t13'
 
         [result_total_change_t13], = MainMenu.cur.execute('SELECT total FROM "{}" WHERE month="{}"'.format(year_addr_change_t13, what_month_change))
         [result_total_change_a61a], = MainMenu.cur.execute('SELECT total FROM "{}" WHERE month="{}"'.format(year_addr_change_a61a, what_month_change))
