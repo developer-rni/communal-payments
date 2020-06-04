@@ -12,3 +12,8 @@ Build v1.4.2
 -Пофикшен баг с расчетом значения "итого" из двух таблиц / Fixed a bug with the calculation of the "total" value from two tables
 -Изменена таблица отчета за 2020 год (добавлины 3 строчки) / -Changed the report table for 2020 (added 3 lines)
 -----
+Build v1.4.3
+-----
+-Добавлен .exe файл для windows / Added .exe file for windows
+-Изменена таблица отчета за 2021 год (добавлины 3 строчки) / -Changed the report table for 2021 (added 3 lines)
+-----

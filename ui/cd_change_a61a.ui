@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>634</width>
+    <height>242</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Изменение показаний по видам платежей Андреевская 61А</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>190</y>
+     <width>341</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>20</y>
+     <width>101</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Январь</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Февраль</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Март</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Апрель</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Май</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Июнь</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Июль</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Август</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Сентябрь</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Октябрь</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ноябрь</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Декабрь</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QSpinBox" name="spinBox">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>20</y>
+     <width>91</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="suffix">
+    <string> год</string>
+   </property>
+   <property name="prefix">
+    <string/>
+   </property>
+   <property name="minimum">
+    <number>2020</number>
+   </property>
+   <property name="maximum">
+    <number>2030</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>20</y>
+     <width>90</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Примечание</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>50</y>
+     <width>581</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QDoubleSpinBox" name="doubleSpinBox">
+      <property name="minimum">
+       <double>-9999.989999999999782</double>
+      </property>
+      <property name="maximum">
+       <double>9999.989999999999782</double>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLineEdit" name="lineEdit_2"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+      <property name="minimum">
+       <double>-9999.989999999999782</double>
+      </property>
+      <property name="maximum">
+       <double>9999.989999999999782</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Изменение масора</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+      <property name="minimum">
+       <double>-9999.989999999999782</double>
+      </property>
+      <property name="maximum">
+       <double>9999.989999999999782</double>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Изменение электроэнергии</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLineEdit" name="lineEdit"/>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLineEdit" name="lineEdit_3"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Изменение газоснабжения</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
