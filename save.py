@@ -13,7 +13,7 @@ class Ui_Dialog(object):
         Dialog.setObjectName("Dialog")
         Dialog.resize(266, 114)
         self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(30, 20, 201, 31))
+        self.label.setGeometry(QtCore.QRect(30, 20, 215, 31))
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(100, 70, 61, 25))
