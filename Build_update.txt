@@ -22,3 +22,7 @@ Build v1.4.4
 -Изменена таблица отчета за 2022-2030(a61a) год (добавлины 3 строчки) / -Changed the report table for 2022-2030(a61a) (added 3 lines)
 -Пофикшен баг с неправильным отображением текста под windows / Fixed a bug with incorrect display of text for windows
 -----
+Build v1.4.5
+-----
+-Изменена таблица отчета за 2020-2030(т13) годы (добавлины 2 строчки) / -Changed the report table for 2020-2030(t13) (added 2 lines)
+-----

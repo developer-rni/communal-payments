@@ -14,11 +14,15 @@ class upd_table_cl(object):
                 [water_last_month], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_last_month', _year_, _month))
                 [water_difference], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_difference', _year_, _month))
                 [water_unit_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_unit_price', _year_, _month))
+                [water_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_change', _year_, _month))
+                [water_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_change_text', _year_, _month))
                 [water_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_to_pay', _year_, _month))
                 wtm = water_this_month
                 wlm = water_last_month
                 wd = water_difference
                 wup = water_unit_price
+                wch = water_change
+                wcht = water_change_text
                 wtp = water_to_pay
         
                 # energy
@@ -28,6 +32,8 @@ class upd_table_cl(object):
                 [energy_unit_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('energy_unit_price', _year_, _month))
                 [energy_price_per_norm], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('energy_price_per_norm', _year_, _month))
                 [energy_excess_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('energy_excess_price', _year_, _month))
+                [energy_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('energy_change', _year_, _month))
+                [energy_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('energy_change_text', _year_, _month))
                 [energy_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('energy_to_pay', _year_, _month))
                 etm = energy_this_month
                 elm = energy_last_month
@@ -35,6 +41,8 @@ class upd_table_cl(object):
                 eup = energy_unit_price
                 eppn = energy_price_per_norm
                 eep = energy_excess_price
+                ech = energy_change
+                echt = energy_change_text
                 etp = energy_to_pay
         
                 # gas
@@ -44,6 +52,8 @@ class upd_table_cl(object):
                 [gas_unit_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_unit_price', _year_, _month))
                 [gas_coefficient], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_coefficient', _year_, _month))
                 [gas_vdgo], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_vdgo', _year_, _month))
+                [gas_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_change', _year_, _month))
+                [gas_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_change_text', _year_, _month))
                 [gas_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('gas_to_pay', _year_, _month))
                 gtm = gas_this_month
                 glm = gas_last_month
@@ -51,13 +61,19 @@ class upd_table_cl(object):
                 gup = gas_unit_price
                 gc = gas_coefficient
                 gv = gas_vdgo
+                gch = gas_change
+                gcht = gas_change_text
                 gtp = gas_to_pay
         
                 # trash
                 [trash_unit_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_unit_price', _year_, _month))
                 [trash_amount], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_amount', _year_, _month))
+                [trash_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_change', _year_, _month))
+                [trash_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_change_text', _year_, _month))
                 [trash_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_to_pay', _year_, _month))
                 tup = trash_unit_price
+                tch = trash_change
+                tcht = trash_change_text
                 ta = trash_amount
                 if trash_to_pay is not None:
                     ttp = round(trash_to_pay, 2)
@@ -66,14 +82,22 @@ class upd_table_cl(object):
         
                 # internet
                 [internet_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('internet_price', _year_, _month))
+                [internet_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('internet_change', _year_, _month))
+                [internet_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('internet_change_text', _year_, _month))
                 [internet_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('internet_to_pay', _year_, _month))
                 internet_p = internet_price
+                ich = internet_change
+                icht = internet_change_text
                 itp = internet_to_pay
         
                 # phone
                 [phone_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('phone_price', _year_, _month))
                 [phone_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('phone_to_pay', _year_, _month))
+                # [phone_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('phone_change', _year_, _month))
+                # [phone_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('phone_change_text', _year_, _month))
                 phone_p = phone_price
+                # phone_ch = phone_change
+                # phone_cht = phone_change_text
                 phone_tp = phone_to_pay
         
                 # total
@@ -93,9 +117,15 @@ class upd_table_cl(object):
                 item = QtWidgets.QTableWidgetItem(str(wup))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(3, 0, item)' % (_year, _month))
-                item = QtWidgets.QTableWidgetItem(str(wtp))
+                item = QtWidgets.QTableWidgetItem(str(wch))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(6, 0, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(wcht))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(7, 0, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(wtp))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(8, 0, item)' % (_year, _month))
         
                 #Свет
                 item = QtWidgets.QTableWidgetItem(str(etm))
@@ -116,9 +146,15 @@ class upd_table_cl(object):
                 item = QtWidgets.QTableWidgetItem(str(eep))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(5, 1, item)' % (_year, _month))
-                item = QtWidgets.QTableWidgetItem(str(etp))
+                item = QtWidgets.QTableWidgetItem(str(ech))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(6, 1, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(echt))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(7, 1, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(etp))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(8, 1, item)' % (_year, _month))
         
                 #Газ
                 item = QtWidgets.QTableWidgetItem(str(gtm))
@@ -136,14 +172,18 @@ class upd_table_cl(object):
                 item = QtWidgets.QTableWidgetItem(str(gc))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(4, 2, item)' % (_year, _month))
-
                 item = QtWidgets.QTableWidgetItem(str(gv))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(5, 2, item)' % (_year, _month))
-
-                item = QtWidgets.QTableWidgetItem(str(gtp))
+                item = QtWidgets.QTableWidgetItem(str(gch))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(6, 2, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(gcht))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(7, 2, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(gtp))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(8, 2, item)' % (_year, _month))
         
                 #Мусор
                 item = QtWidgets.QTableWidgetItem(str(tup))
@@ -152,49 +192,50 @@ class upd_table_cl(object):
                 item = QtWidgets.QTableWidgetItem(str(ta))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(4, 3, item)' % (_year, _month))
-                item = QtWidgets.QTableWidgetItem(str(ttp))
+                item = QtWidgets.QTableWidgetItem(str(tch))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(6, 3, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(tcht))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(7, 3, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(ttp))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(8, 3, item)' % (_year, _month))
         
                 #Интернет
                 item = QtWidgets.QTableWidgetItem(str(internet_p))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(3, 4, item)' % (_year, _month))
-                item = QtWidgets.QTableWidgetItem(str(itp))
+                item = QtWidgets.QTableWidgetItem(str(ich))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(6, 4, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(icht))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(7, 4, item)' % (_year, _month))
+                item = QtWidgets.QTableWidgetItem(str(itp))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(8, 4, item)' % (_year, _month))
         
                 #Телефон
                 item = QtWidgets.QTableWidgetItem(str(phone_p))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(3, 5, item)' % (_year, _month))
+                # item = QtWidgets.QTableWidgetItem(str(phone_ch))
+                # item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                # exec('self.tableWidget_%d_%s.setItem(6, 5, item)' % (_year, _month))
+                # item = QtWidgets.QTableWidgetItem(str(phone_cht))
+                # item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                # exec('self.tableWidget_%d_%s.setItem(7, 5, item)' % (_year, _month))
                 item = QtWidgets.QTableWidgetItem(str(phone_tp))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
-                exec('self.tableWidget_%d_%s.setItem(6, 5, item)' % (_year, _month))
+                exec('self.tableWidget_%d_%s.setItem(8, 5, item)' % (_year, _month))
         
                 #Итого
-                exec('self.tableWidget_%d_%s.setSpan(7, 0, 1, 6)' % (_year, _month))
+                exec('self.tableWidget_%d_%s.setSpan(9, 0, 1, 6)' % (_year, _month))
                 item = QtWidgets.QTableWidgetItem(str(total))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
-                exec('self.tableWidget_%d_%s.setItem(7, 0, item)' % (_year, _month))
+                exec('self.tableWidget_%d_%s.setItem(9, 0, item)' % (_year, _month))
 
-        # #test
-        # year = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030]
-        # month = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
-        # for _year in year:
-        #     for _month in month:
-        #         # total
-        #         _year_ = str(_year) + '_t13'
-        #         [total_t13], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('total', _year_, _month))
-        #         total = total_t13
-        # 
-        #         #Итого
-        #         exec('self.tableWidget_%d_%s.setSpan(7, 0, 1, 6)' % (_year, _month))
-        #         # self.tableWidget_2020_jan.setSpan(7, 0, 1, 6) #объединение ячеек итого
-        #         item = QtWidgets.QTableWidgetItem(str(total))
-        #         item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
-        #         exec('self.tableWidget_%d_%s.setItem(7, 0, item)' % (_year, _month))
-        #         # self.tableWidget_2020_jan.setItem(7, 0, item)
 
     def upd_t_a61a(self):
         year = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030]
