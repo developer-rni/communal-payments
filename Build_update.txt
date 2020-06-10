@@ -26,3 +26,7 @@ Build v1.4.5
 -----
 -Изменена таблица отчета за 2020-2030(т13) годы (добавлины 2 строчки) / -Changed the report table for 2020-2030(t13) (added 2 lines)
 -----
+Build v1.5
+-----
+-Добавлена возможность загружать файл БД на гугл диск / Added ability to upload database file to google drive
+-----
