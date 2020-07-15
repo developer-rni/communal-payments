@@ -114,7 +114,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Изменение показаний по видам платежей Толстого 13"))
-        self.label_4.setText(_translate("Dialog", "Изменение масора"))
+        self.label_4.setText(_translate("Dialog", "Изменение мусора"))
         self.label_3.setText(_translate("Dialog", "Изменение газоснабжения"))
         self.label_5.setText(_translate("Dialog", "Изменение интернета"))
         self.label_2.setText(_translate("Dialog", "Изменение электроэнергии"))

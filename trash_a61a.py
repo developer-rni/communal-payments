@@ -29,17 +29,10 @@ class Ui_Dialog(object):
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
         self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
         self.doubleSpinBox.setDecimals(2)
-        self.doubleSpinBox.setMaximum(999.99)
+        self.doubleSpinBox.setMaximum(9999.99)
         self.doubleSpinBox.setProperty("value", 0.0)
         self.doubleSpinBox.setObjectName("doubleSpinBox")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox)
-        self.label_2 = QtWidgets.QLabel(self.formLayoutWidget)
-        self.label_2.setObjectName("label_2")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
-        self.spinBox = QtWidgets.QSpinBox(self.formLayoutWidget)
-        self.spinBox.setMaximum(10)
-        self.spinBox.setObjectName("spinBox")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.spinBox)
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(self.acept_data)
@@ -49,30 +42,28 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Расчет мусора Андреевская 61А"))
-        self.label.setText(_translate("Dialog", "Цена за 1 человека"))
-        self.label_2.setText(_translate("Dialog", "Кол-во человеков"))
+        self.label.setText(_translate("Dialog", "Цена за месяц"))
+
 
     def acept_data(self):
-        global trash_unit_price
-        global trash_amount
+        global trash_price
 
-        trash_unit_price = self.doubleSpinBox.value()
-        trash_amount = self.spinBox.value()
+        trash_price = self.doubleSpinBox.value()
 
-        self.sqlite_update_db(trash_unit_price, trash_amount)
+        self.sqlite_update_db(trash_price)
         self.close()
     def reject_data(self):
         self.close()
 
-    def sqlite_update_db(self, nb1, nb2):
+
+    def sqlite_update_db(self, nb1):
 
         year_addr = str(MainMenu.year_spin_a61a) + '_a61a'
 
-        payment_type1 = 'trash_unit_price'
-        payment_type2 = 'trash_amount'
+        payment_type1 = 'trash_price'
+        payment_type2 = 'trash_to_pay'
 
         number1 = nb1
-        number2 = nb2
 
         if MainMenu.month_combo_a61a == 'Январь':
             what_month = 'jan'
@@ -100,15 +91,9 @@ class Ui_Dialog(object):
             what_month = 'dec'
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number2, what_month))
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number1, what_month))
 
-        trash_to_pay = round((number1 * number2), 2)
-        payment_type3 = 'trash_to_pay'
-
-        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, trash_to_pay, what_month))
-
-
-        # /запись итого в данную таблицу/
+      # /запись итого в данную таблицу/
         # --------------------------------
 
         payment_energy_pay = 'energy_to_pay'
@@ -160,6 +145,7 @@ class Ui_Dialog(object):
 
 
 if __name__ == "__main__":
+    import sys
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()

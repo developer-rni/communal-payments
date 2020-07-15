@@ -66,15 +66,13 @@ class upd_table_cl(object):
                 gtp = gas_to_pay
         
                 # trash
-                [trash_unit_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_unit_price', _year_, _month))
-                [trash_amount], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_amount', _year_, _month))
+                [trash_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_price', _year_, _month))
                 [trash_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_change', _year_, _month))
                 [trash_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_change_text', _year_, _month))
                 [trash_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_to_pay', _year_, _month))
-                tup = trash_unit_price
+                tp = trash_price
                 tch = trash_change
                 tcht = trash_change_text
-                ta = trash_amount
                 if trash_to_pay is not None:
                     ttp = round(trash_to_pay, 2)
                 else:
@@ -186,12 +184,9 @@ class upd_table_cl(object):
                 exec('self.tableWidget_%d_%s.setItem(8, 2, item)' % (_year, _month))
         
                 #Мусор
-                item = QtWidgets.QTableWidgetItem(str(tup))
+                item = QtWidgets.QTableWidgetItem(str(tp))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(3, 3, item)' % (_year, _month))
-                item = QtWidgets.QTableWidgetItem(str(ta))
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
-                exec('self.tableWidget_%d_%s.setItem(4, 3, item)' % (_year, _month))
                 item = QtWidgets.QTableWidgetItem(str(tch))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(6, 3, item)' % (_year, _month))
@@ -274,15 +269,13 @@ class upd_table_cl(object):
                 gtp = gas_to_pay
 
                 # trash
-                [trash_unit_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_unit_price', _year_, _month))
-                [trash_amount], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_amount', _year_, _month))
+                [trash_price], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_price', _year_, _month))
                 [trash_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_change', _year_, _month))
                 [trash_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_change_text', _year_, _month))
                 [trash_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('trash_to_pay', _year_, _month))
-                tup = trash_unit_price
+                tp = trash_price
                 tc = trash_change
                 tct = trash_change_text
-                ta = trash_amount
                 if trash_to_pay is not None:
                     ttp = round(trash_to_pay, 2)
                 else:
@@ -339,12 +332,9 @@ class upd_table_cl(object):
                 exec('self.tableWidget_%d_%s_2.setItem(8, 1, item)' % (_year, _month))
 
                 #Мусор
-                item = QtWidgets.QTableWidgetItem(str(tup))
+                item = QtWidgets.QTableWidgetItem(str(tp))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s_2.setItem(3, 2, item)' % (_year, _month))
-                item = QtWidgets.QTableWidgetItem(str(ta))
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
-                exec('self.tableWidget_%d_%s_2.setItem(4, 2, item)' % (_year, _month))
                 item = QtWidgets.QTableWidgetItem(str(tc))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s_2.setItem(6, 2, item)' % (_year, _month))

@@ -104,7 +104,7 @@ class Ui_Dialog(object):
         self.comboBox.setItemText(11, _translate("Dialog", "Декабрь"))
         self.spinBox.setSuffix(_translate("Dialog", " год"))
         self.label_4.setText(_translate("Dialog", "Примечание"))
-        self.label_3.setText(_translate("Dialog", "Изменение масора"))
+        self.label_3.setText(_translate("Dialog", "Изменение мусора"))
         self.label.setText(_translate("Dialog", "Изменение электроэнергии"))
         self.label_2.setText(_translate("Dialog", "Изменение газоснабжения"))
 
