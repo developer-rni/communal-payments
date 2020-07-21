@@ -10,6 +10,7 @@ class upd_table_cl(object):
             for _month in month:
                 _year_ = str(_year) + '_t13'
                 # water
+                [water_meter], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_meter', _year_, _month))
                 [water_this_month], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_this_month', _year_, _month))
                 [water_last_month], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_last_month', _year_, _month))
                 [water_difference], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_difference', _year_, _month))
@@ -17,6 +18,7 @@ class upd_table_cl(object):
                 [water_change], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_change', _year_, _month))
                 [water_change_text], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_change_text', _year_, _month))
                 [water_to_pay], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format('water_to_pay', _year_, _month))
+                wm = water_meter
                 wtm = water_this_month
                 wlm = water_last_month
                 wd = water_difference
@@ -115,6 +117,11 @@ class upd_table_cl(object):
                 item = QtWidgets.QTableWidgetItem(str(wup))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(3, 0, item)' % (_year, _month))
+
+                item = QtWidgets.QTableWidgetItem(str(wm))
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+                exec('self.tableWidget_%d_%s.setItem(4, 0, item)' % (_year, _month))
+
                 item = QtWidgets.QTableWidgetItem(str(wch))
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
                 exec('self.tableWidget_%d_%s.setItem(6, 0, item)' % (_year, _month))

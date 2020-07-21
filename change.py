@@ -223,33 +223,38 @@ class Ui_Dialog(object):
 
         if water_change_slots is None:
             MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_1, nb1, what_month_change))
-            total = total + nb1
+            total = round((total + nb1), 2)
         else:
             if nb1 > water_change_slots:
                 water_change_difference = nb1 - water_change_slots
-                total = total + water_change_difference
+                total = round((total + water_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_1, nb1, what_month_change))
             elif nb1 < water_change_slots:
                 water_change_difference = water_change_slots - nb1
-                total = total - water_change_difference
+                total = round((total - water_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_1, nb1, what_month_change))
             else:
                 pass
                 
         if tx1:
-            MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_2, tx1, what_month_change))
+            [water_change_text_record], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(cloumn_name_2, year_addr_change, what_month_change))
+            if water_change_text_record == ' *перерасчет':
+                water_change_text_new = tx1 + water_change_text_record
+                MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_2, water_change_text_new, what_month_change))
+            else:
+                MainMenu.cur.execute('UPDATE "{}" SET {} = "{}" WHERE month="{}"'.format(year_addr_change, cloumn_name_2, tx1, what_month_change))
 
         if energy_change_slots is None:
             MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_3, nb2, what_month_change))
-            total = total + nb2
+            total = round((total + nb2), 2)
         else:
             if nb2 > energy_change_slots:
                 energy_change_difference = nb2 - energy_change_slots
-                total = total + energy_change_difference
+                total = round((total + energy_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_3, nb2, what_month_change))
             elif nb2 < energy_change_slots:
                 energy_change_difference = energy_change_slots - nb2
-                total = total - energy_change_difference
+                total = round((total - energy_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_3, nb2, what_month_change))
             else:
                 pass
@@ -259,15 +264,15 @@ class Ui_Dialog(object):
 
         if gas_change_slots is None:
             MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_5, nb3, what_month_change))
-            total = total + nb3
+            total = round((total + nb3), 2)
         else:
             if nb3 > gas_change_slots:
                 gas_change_difference = nb3 - gas_change_slots
-                total = total + gas_change_difference
+                total = round((total + gas_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_5, nb3, what_month_change))
             elif nb3 < gas_change_slots:
                 gas_change_difference = gas_change_slots - nb3
-                total = total - gas_change_difference
+                total = round((total - gas_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_5, nb3, what_month_change))
             else:
                 pass
@@ -277,15 +282,15 @@ class Ui_Dialog(object):
 
         if trash_change_slots is None:
             MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_7, nb4, what_month_change))
-            total = total + nb4
+            total = round((total + nb4), 2)
         else:
             if nb4 > trash_change_slots:
                 trash_change_difference = nb4 - trash_change_slots
-                total = total + trash_change_difference
+                total = round((total + trash_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_7, nb4, what_month_change))
             elif nb4 < trash_change_slots:
                 trash_change_difference = trash_change_slots - nb4
-                total = total - trash_change_difference
+                total = round((total - trash_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_7, nb4, what_month_change))
             else:
                 pass
@@ -295,15 +300,15 @@ class Ui_Dialog(object):
 
         if internet_change_slots is None:
             MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_9, nb5, what_month_change))
-            total = total + nb5
+            total = round((total + nb5), 2)
         else:
             if nb5 > internet_change_slots:
                 internet_change_difference = nb5 - internet_change_slots
-                total = total + internet_change_difference
+                total = round((total + internet_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_9, nb5, what_month_change))
             elif nb5 < internet_change_slots:
                 internet_change_difference = internet_change_slots - nb5
-                total = total - internet_change_difference
+                total = round((total - internet_change_difference), 2)
                 MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr_change, cloumn_name_9, nb5, what_month_change))
             else:
                 pass

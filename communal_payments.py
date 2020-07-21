@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # communal_payments Rybkin Nikita Igorevich
-# v 1.6
+# v 1.7
 
-import sys, MainMenu, save, exitM, upload_gd, upload_error, upload_success, change, change_a61a
+import sys, MainMenu, save, exitM, upload_gd, upload_error, upload_success, change, change_a61a, recalculation_water
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QGridLayout, QLabel, QApplication
 
@@ -21,6 +21,7 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
         self.upload_error = upload_error()
         self.change = change()
         self.change_a61a = change_a61a()
+        self.recalculation_water = recalculation_water()
 
 
     def InitUI(self):
@@ -31,6 +32,7 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
         self.action_t13_calculate.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(1))  # Открыть окно "что платим" при нажатии на Толстого13 -> Рассчитать
         self.action_t13_report.triggered.connect(self.show_report_t13)  # Открыть таблицу отчет при нажатии на Толстого13 -> Отчет
         self.action_t13_change.triggered.connect(self.show_change_t13) # Вывести окно изменение платежей Толстого 13
+        self.action_t13_recalculation_water.triggered.connect(self.show_recalculation_water_t13) # Вывести окно пересчет водоснабжения Толстого 13
         
         self.action_a61a_calculate.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(2))  # Открыть окно "что платим" при нажатии на Андреевская 61а -> Рассчитать
         self.action_a61a_report.triggered.connect(self.show_report_a61a)  # Открыть таблицу отчет при нажатии на Андреевская 61а -> Отчет
@@ -69,6 +71,9 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
     
     def show_change_a61a(self):
         self.change_a61a.show()
+    
+    def show_recalculation_water_t13(self):
+        self.recalculation_water.show()
 
 
 
@@ -98,6 +103,11 @@ class change(QtWidgets.QDialog, change.Ui_Dialog):
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
 class change_a61a(QtWidgets.QDialog, change_a61a.Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+
+class recalculation_water(QtWidgets.QDialog, recalculation_water.Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна

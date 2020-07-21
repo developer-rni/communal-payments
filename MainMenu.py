@@ -14844,6 +14844,10 @@ class Ui_MainWindow(object):
         self.action_t13_report.setObjectName("action_t13_report")
         self.action_t13_change = QtWidgets.QAction(MainWindow)
         self.action_t13_change.setObjectName("action_t13_change")
+
+        self.action_t13_recalculation_water = QtWidgets.QAction(MainWindow)
+        self.action_t13_recalculation_water.setObjectName("action_t13_recalculation_water")
+
         self.action_save = QtWidgets.QAction(MainWindow)
         self.action_save.setObjectName("action_save")
         self.action_exit = QtWidgets.QAction(MainWindow)
@@ -14865,6 +14869,7 @@ class Ui_MainWindow(object):
         self.menu_t13.addAction(self.action_t13_calculate)
         self.menu_t13.addAction(self.action_t13_report)
         self.menu_t13.addAction(self.action_t13_change)
+        self.menu_t13.addAction(self.action_t13_recalculation_water)
         self.menu_file.addAction(self.action_save)
         self.menu_file.addAction(self.action_download_GD)
         self.menu_file.addSeparator()
@@ -23982,6 +23987,7 @@ class Ui_MainWindow(object):
         self.action_t13_calculate.setText(_translate("MainWindow", "Рассчитать"))
         self.action_t13_report.setText(_translate("MainWindow", "Отчет"))
         self.action_t13_change.setText(_translate("MainWindow", "Изменить"))
+        self.action_t13_recalculation_water.setText(_translate("MainWindow", "Пересчитать водоснабжение"))
         self.action_save.setText(_translate("MainWindow", "Сохранить"))
         self.action_exit.setText(_translate("MainWindow", "Выход"))
         self.action_a61a_calculate.setText(_translate("MainWindow", "Рассчитать"))

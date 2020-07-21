@@ -64,7 +64,7 @@ class Ui_Dialog(object):
         water_supply = self.doubleSpinBox.value()
         water_drain = self.doubleSpinBox_2.value()
 
-        water_unit_price = float(water_supply) + float(water_drain)
+        water_unit_price = round((float(water_supply) + float(water_drain)) , 2)
 
         self.sqlite_update_db(water_this_month, water_unit_price)
         self.close()
@@ -152,6 +152,10 @@ class Ui_Dialog(object):
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type5, water_to_pay, what_month))
 
+        payment_type6 = 'water_meter'
+        [water_meter_old], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_type6, year_addr, what_month_old))
+        water_meter_new = water_meter_old + water_difference
+        MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type6, water_meter_new, what_month))
 
         # /запись итого в данную таблицу/
         # ---------------------------
