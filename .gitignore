@@ -1,0 +1,8 @@
+# Default ignored files
+/workspace.xml
+__pycache__*
+*.pyc
+client_secrets.json
+credentials.json
+mycreds.txt
+settings.yaml
