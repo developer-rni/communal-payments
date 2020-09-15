@@ -26,7 +26,7 @@ class ExampleApp(QtWidgets.QMainWindow, MainMenu.Ui_MainWindow):
 
     def InitUI(self):
         self.action_save.triggered.connect(self.show_save_db)  # Вывести окно и сохранить данные в бд при нажатии Файл -> сохронить
-        self.action_download_GD.triggered.connect(self.upload_BD)  # Закрыть программу при нажатии Файл -> Залить в облако (google drive)
+        self.action_download_GD.triggered.connect(self.upload_BD)  # Загрузить БД в Google Drive при нажатии Файл -> Залить в облако (google drive)
         self.action_exit.triggered.connect(self.show_exitM)  # Закрыть программу при нажатии Файл -> Выход
 
         self.action_t13_calculate.triggered.connect(lambda: self.stackedWidget.setCurrentIndex(1))  # Открыть окно "что платим" при нажатии на Толстого13 -> Рассчитать

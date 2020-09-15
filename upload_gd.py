@@ -30,8 +30,6 @@ class upload_file(object):
         # Read file and set it as a content of this instance.
         file1.SetContentFile('data/data_cp.db')
         file1.Upload() # Upload the file.
-        # print('title: %s, mimeType: %s, id: %s' % (file1['title'], file1['mimeType'], file1['id']))
-        # print (file1)
           
         upload_finish = bool(1)
         return upload_finish
