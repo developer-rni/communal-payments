@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'cd_water.ui'
-#
-# Created by: PyQt5 UI code generator 5.10.1
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys, MainMenu
+import sys
+import MainMenu
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -64,10 +60,11 @@ class Ui_Dialog(object):
         water_supply = self.doubleSpinBox.value()
         water_drain = self.doubleSpinBox_2.value()
 
-        water_unit_price = round((float(water_supply) + float(water_drain)) , 2)
+        water_unit_price = round((float(water_supply) + float(water_drain)), 2)
 
         self.sqlite_update_db(water_this_month, water_unit_price)
         self.close()
+
     def reject_data(self):
         self.close()
 
@@ -153,7 +150,7 @@ class Ui_Dialog(object):
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type5, water_to_pay, what_month))
 
         payment_type6 = 'water_meter'
-        [water_meter_old], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_type6, year_addr, what_month_old))
+        [water_meter_old], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_type6, year_addr_old, what_month_old))
         water_meter_new = water_meter_old + water_difference
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type6, water_meter_new, what_month))
 
@@ -181,18 +178,16 @@ class Ui_Dialog(object):
                 spisok[i] = 0
             i += 1
 
-        total_result = spisok[0] + spisok[1] + spisok[2] + spisok[3] + spisok[4] + spisok[5]
+        total_result = round(sum(spisok), 2)
 
         payment_total = 'total'
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))
-
 
         # /запись в общий отчет двух таблиц/
         # ---------------------------
 
         year_addr_t13 = year_addr
         year_addr_a61a = str(MainMenu.year_spin_t13) + '_a61a'
-
 
         [result_t13], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_total, year_addr_t13, what_month))
         [result_a61a], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_total, year_addr_a61a, what_month))
@@ -208,14 +203,3 @@ class Ui_Dialog(object):
         t_general_month = what_month + '_general_total'
         what_year = MainMenu.year_spin_t13
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE year="{}"'.format(t_general_total_to_pay, t_general_month, general_total_result, what_year))
-
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
-

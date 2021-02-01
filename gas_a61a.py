@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'cd_gas_a61a.ui'
-#
-# Created by: PyQt5 UI code generator 5.10.1
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys, MainMenu
+import sys
+import MainMenu
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -50,7 +46,7 @@ class Ui_Dialog(object):
         self.doubleSpinBox_2.setObjectName("doubleSpinBox_2")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_2)
 
-        '''вдго'''
+        # вдго
         self.label_4 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_4.setObjectName("label_4")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_4)
@@ -85,6 +81,7 @@ class Ui_Dialog(object):
 
         self.sqlite_update_db(gas_this_month, gas_unit_price, gas_coefficient, gas_vdgo)
         self.close()
+
     def reject_data(self):
         self.close()
 
@@ -169,7 +166,6 @@ class Ui_Dialog(object):
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type7, gas_to_pay, what_month))
 
-
         # /запись итого в данную таблицу/
         # ---------------------------
 
@@ -189,11 +185,10 @@ class Ui_Dialog(object):
                 spisok[i] = 0
             i += 1
 
-        total_result = round((spisok[0] + spisok[1] + spisok[2]), 2)
+        total_result = round(sum(spisok), 2)
 
         payment_total = 'total'
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))
-
 
         # /запись в общий отчет двух таблиц/
         # ---------------------------
@@ -215,12 +210,3 @@ class Ui_Dialog(object):
         t_general_month = what_month + '_general_total'
         what_year = MainMenu.year_spin_a61a
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE year="{}"'.format(t_general_total_to_pay, t_general_month, general_total_result, what_year))
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
-

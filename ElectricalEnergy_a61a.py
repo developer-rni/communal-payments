@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'cd_ElectricalEnegry_a61a.ui'
-#
-# Created by: PyQt5 UI code generator 5.10.1
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys, MainMenu
+import sys
+import MainMenu
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -49,6 +45,7 @@ class Ui_Dialog(object):
 
         self.sqlite_update_db(energy_unit_price)
         self.close()
+
     def reject_data(self):
         self.close()
 
@@ -89,7 +86,6 @@ class Ui_Dialog(object):
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type1, number1, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type2, number1, what_month))
 
-
         # /запись итого в данную таблицу/
         # ---------------------------
 
@@ -109,12 +105,10 @@ class Ui_Dialog(object):
                 spisok[i] = 0
             i += 1
 
-        total_result = spisok[0] + spisok[1] + spisok[2]
+        total_result = round(sum(spisok), 2)
 
         payment_total = 'total'
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))
-
-
 
         # /запись в общий отчет двух таблиц/
         # ---------------------------
@@ -137,12 +131,3 @@ class Ui_Dialog(object):
         what_year = MainMenu.year_spin_a61a
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE year="{}"'.format(t_general_total_to_pay, t_general_month, general_total_result, what_year))
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
-

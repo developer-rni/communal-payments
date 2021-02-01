@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'cd_gas.ui'
-#
-# Created by: PyQt5 UI code generator 5.10.1
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys, MainMenu
+import sys
+import MainMenu
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -49,7 +45,7 @@ class Ui_Dialog(object):
         self.doubleSpinBox_2.setObjectName("doubleSpinBox_2")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_2)
 
-        ''' вдго '''
+        # вдго
         self.label_4 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_4.setObjectName("label_4")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_4)
@@ -57,7 +53,6 @@ class Ui_Dialog(object):
         self.doubleSpinBox_3.setMaximum(9999)
         self.doubleSpinBox_3.setObjectName("doubleSpinBox_3")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_3)
-
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(self.acept_data)
@@ -98,12 +93,10 @@ class Ui_Dialog(object):
         payment_type3 = 'gas_coefficient'
         payment_type4 = 'gas_vdgo'
 
-
         number1 = nb1
         number2 = nb2
         number3 = nb3
         number4 = nb4
-
 
         if MainMenu.month_combo_t13 == 'Январь':
             what_month = 'jan'
@@ -147,7 +140,6 @@ class Ui_Dialog(object):
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type3, number3, what_month))
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type4, number4, what_month))
 
-
         year_addr_prev = MainMenu.year_spin_t13 - 1
         year_addr_previous = str(year_addr_prev) + '_t13'
 
@@ -171,7 +163,6 @@ class Ui_Dialog(object):
         payment_type7 = 'gas_to_pay'
 
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_type7, gas_to_pay, what_month))
-
 
         # /запись итого в данную таблицу/
         # ---------------------------
@@ -197,18 +188,16 @@ class Ui_Dialog(object):
                 spisok[i] = 0
             i += 1
 
-        total_result = round((spisok[0] + spisok[1] + spisok[2] + spisok[3] + spisok[4] + spisok[5]), 2)
+        total_result = round(sum(spisok), 2)
 
         payment_total = 'total'
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE month="{}"'.format(year_addr, payment_total, total_result, what_month))
-
 
         # /запись в общий отчет двух таблиц/
         # ---------------------------
 
         year_addr_t13 = year_addr
         year_addr_a61a = str(MainMenu.year_spin_t13) + '_a61a'
-
 
         [result_t13], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_total, year_addr_t13, what_month))
         [result_a61a], = MainMenu.cur.execute('SELECT {} FROM "{}" WHERE month="{}"'.format(payment_total, year_addr_a61a, what_month))
@@ -224,14 +213,3 @@ class Ui_Dialog(object):
         t_general_month = what_month + '_general_total'
         what_year = MainMenu.year_spin_t13
         MainMenu.cur.execute('UPDATE "{}" SET {} = {} WHERE year="{}"'.format(t_general_total_to_pay, t_general_month, general_total_result, what_year))
-
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
-
